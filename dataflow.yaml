@@ -78,6 +78,10 @@ topics:
     schema:
       value:
         type: status-total
+  upgrade-severity:
+    schema:
+      value:
+        type: status-location
 
 
 services:
@@ -190,30 +194,44 @@ services:
       - type: topic
         id: update-severity
   ########################################            
-  update-severity:
+  split-severity:
     sources:
       - type: topic
         id: update-severity
     transforms:
       - operator: flat-map
         run: |
-          fn map_high_sev(logList: StatusTotal) -> Result<Vec<StatusLog>, String> {
+          fn map_high_sev(logList: StatusTotal) -> Result<Vec<StatusLocation>, String> {
             Ok(logList)
           }
-    partition:
-      assign-key:
-        run: | 
-          fn get_status(log: StatusLog) -> Result<u32, String> {
-            if log.error_count > 2 {
-              Ok(log)
+    sinks:
+      - type: topic
+        id: upgrade-severity
+  ########################################
+  send-highAlerts:
+    sources:
+      - type: topic
+        id: upgrade-severity
+    transforms:
+      - operator: filter-map
+        run: |
+          fn upgrade_status(status: StatusLocation) -> Result<Option<StatusLog>, String> {
+            if status.error_count < 2 {
+              return Ok(None);
             }
+            let num: u32 = status.location.parse().unwrap();
+            Ok(
+              Some(StatusLog{
+                location: num,
+                error: 2,
+                error_id: 1000,
+                reason: format!("Upgraded Error. Total Errors {} in window",status.error_count).to_string()
+              })
+            )
           }
-    update-state:
-      run: | 
-        fn add
+
+
     sinks:
       - type: topic
         id: high-severity
-
-    
 
