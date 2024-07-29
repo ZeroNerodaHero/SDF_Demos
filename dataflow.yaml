@@ -1,0 +1,219 @@
+apiVersion: 0.4.0
+meta:
+  name: car-processing
+  version: 0.1.0
+  namespace: examples
+
+config:
+  converter: json
+  consumer:
+    default_starting_offset:
+      value: 0
+      position: End
+
+types:
+  car:
+    type: object
+    properties:
+      maker:
+        type: string
+      model:
+        type: string
+      color:
+        type: string
+      license:
+        type: string
+      location:
+        type: string
+      mph:
+        type: u32
+      timestamp:
+        type: string
+  status-log:
+    type: object
+    properties:
+      location: 
+        type: u32
+      error: 
+        type: u32
+      error_id:
+        type: u32
+      reason:
+        type: string
+  status-location:
+    type: object
+    properties:
+      location:
+        type: string
+      error_count:
+        type: u32
+  status-total:
+    type: list
+    items:
+      type: status-location
+  
+
+topics:
+  cars:
+    schema:
+      value:
+        type: car
+  status:
+    schema:
+      value:
+        type: status-log
+  high-severity:
+    schema:
+      value:
+        type: status-log
+  low-severity:
+    schema:
+      value:
+        type: status-log
+  status-total:
+    schema:
+      value:
+        type: status-total
+  update-severity:
+    schema:
+      value:
+        type: status-total
+
+
+services:
+  re-encode:
+    sources:
+      - type: topic
+        id: cars
+
+    transforms:
+      - operator: map
+        dependencies:
+          - name: rand
+            version: "0.8"
+        run: |
+          fn randencode(car: Car) -> Result<StatusLog, String> {
+            use rand::Rng;
+            const MAX_LOCATION: u32 = 10;
+
+            let mut rng = rand::thread_rng();
+            let errorCode : u32 = rng.gen::<u32>() % 3;
+            let mut errorMsg : String = "No Error".to_string();
+            if errorCode == 1 {
+              errorMsg = "Low Error".to_string();
+            } else{
+              errorMsg = "High Error".to_string();
+            }
+            let log: StatusLog = StatusLog {
+              location: rng.gen::<u32>() % MAX_LOCATION,
+              error: errorCode,
+              error_id: rng.gen(),
+              reason: errorMsg
+            };
+            Ok(log)
+          }
+    sinks:
+      - type: topic
+        id: status
+  ########################################            
+  filter-severity:
+    sources:
+      - type: topic
+        id: status
+    sinks:
+      - type: topic
+        id: high-severity
+        transforms:
+          - operator: filter
+            run: |
+              fn is_high(log: StatusLog) -> Result<bool, String> {
+                Ok(log.error == 2)
+              }
+      - type: topic
+        id: low-severity
+        transforms:
+          - operator: filter
+            run: |
+              fn is_low(log: StatusLog) -> Result<bool, String> {
+                Ok(log.error == 1)
+              }
+  ########################################            
+  count-by-location:
+    sources:
+      - type: topic
+        id: low-severity
+
+    states:
+      count-by-location:
+        type: keyed-state
+        properties:
+          key:
+            type: string
+          value:
+            type: u32
+            
+    window:
+      tumbling:
+        duration: 10s
+
+      assign-timestamp:
+        run: |
+          fn assign_event_timestamp(log: StatusLog, event_time: i64) -> Result<i64, String> {
+            Ok(event_time)
+          }
+      partition:
+        assign-key:
+          run: |
+            fn key_by_location(log: StatusLog) -> Result<String, String> {
+              Ok(log.location.to_string())
+            }
+      
+        update-state:
+          run: |
+            fn increment_location_count(log: StatusLog) -> Result<(), String> {
+              count_by_location().increment(1);
+              Ok(())
+            }
+
+      flush:
+        run: |
+          fn get_location_count() -> Result<StatusTotal, String> {
+            let mut cc = count_by_location().clone();
+            Ok(cc.iter().map(|entry| 
+              StatusLocation { 
+                location: entry.key.clone().to_string(), 
+                error_count: entry.value,
+              }
+            ).collect())
+          }
+    sinks:
+      - type: topic
+        id: update-severity
+  ########################################            
+  update-severity:
+    sources:
+      - type: topic
+        id: update-severity
+    transforms:
+      - operator: flat-map
+        run: |
+          fn map_high_sev(logList: StatusTotal) -> Result<Vec<StatusLog>, String> {
+            Ok(logList)
+          }
+    partition:
+      assign-key:
+        run: | 
+          fn get_status(log: StatusLog) -> Result<u32, String> {
+            if log.error_count > 2 {
+              Ok(log)
+            }
+          }
+    update-state:
+      run: | 
+        fn add
+    sinks:
+      - type: topic
+        id: high-severity
+
+    
+
