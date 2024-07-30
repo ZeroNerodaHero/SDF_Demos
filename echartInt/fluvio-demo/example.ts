@@ -34,7 +34,7 @@ async function consume() {
     console.log('Reading from the beginning');
 
     await consumer.stream(Offset.FromBeginning(), async (record: Record) => {
-      const message = `Key=${record.keyString()}, Value=${record.valueString()}`;
+      const message = `${record.valueString()}`;
       console.log(message);
       broadcastToClients(message);  // Broadcast the message to all clients
     });
@@ -53,51 +53,56 @@ app.get('/', (req: Request, res: Response) => {
       </head>
       <body>
         <div id="main" style="width: 600px;height:400px;"></div>
-        <script>
-          var myChart = echarts.init(document.getElementById('main'));
-
-          // Specify the configuration items and data for the chart
-          var option = {
-            title: {
-              text: 'ECharts Getting Started Example'
-            },
-            tooltip: {},
-            legend: {
-              data: ['sales']
-            },
-            xAxis: {
-              data: ['Shirts', 'Cardigans', 'Chiffons', 'Pants', 'Heels', 'Socks']
-            },
-            yAxis: {},
-            series: [
-              {
-                name: 'sales',
-                type: 'bar',
-                data: [5, 20, 36, 10, 10, 20]
-              }
-            ]
-          };
-
-          // Display the chart using the configuration items and data just specified.
-          myChart.setOption(option);
-        </script>
         <div id="messages"></div>
         <script>
+          var myChart = echarts.init(document.getElementById('main'));
+          var error_data = Array.from({ length: 11 }, () => Array(1).fill(0))
+
+          function updateOption(appendValue){
+            series = []
+            for(let i = 1; i <= 10; i++){
+              error_data[i].push(appendValue[i])
+              series.push({
+                name: 'Location '+i,
+                type: 'line',
+                stack: 'Total',
+                data: error_data[i]
+              })
+            }
+            error_data.push(appendValue)
+            return{
+              tooltip: {
+                trigger: 'axis'
+              },
+              xAxis: {
+                type: 'category',
+              },
+              yAxis: {
+                type: 'value'
+              },
+              series: series
+            };
+          }
+          function mapInput(input){
+            var ret = Array(11).fill(0)
+            for (const item of input) {
+              ret[parseInt(item.location)] = item.error_count;
+            }
+            return ret
+          }
+          
+          myChart.setOption(updateOption(1));
           const eventSource = new EventSource("/events");
           eventSource.onmessage = (event) => {
             const messagesDiv = document.getElementById("messages");
             const newMessage = document.createElement("p");
-            newMessage.textContent = event.data;
-            messagesDiv.appendChild(newMessage);
 
             let message = event.data;
-            const regex = /Value=(\[\{[^]*?\}\])/;
-            const match = message.match(regex);
+            newMessage.textContent = message;
+            messagesDiv.appendChild(newMessage);
 
-            if (match) {
-              const jsonArray = JSON.parse(match[1]);
-              console.log(jsonArray);
-            }
+            const jsonArray = JSON.parse(message);
+            myChart.setOption(updateOption(mapInput(jsonArray)));
           };
         </script>
       </body>
