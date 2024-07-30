@@ -1,0 +1,2 @@
+cargo:rerun-if-changed=build.rs
+cargo:rustc-env=DEBUG_OUTPUT_DIR=/home/school/work/fluvio/SDF_Demos/.sdf/rust-project/target/wasm-release/build/wit-bindgen-rust-macro-20ddd2a495268a0d/out

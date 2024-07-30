@@ -15,18 +15,6 @@ types:
   car:
     type: object
     properties:
-      maker:
-        type: string
-      model:
-        type: string
-      color:
-        type: string
-      license:
-        type: string
-      location:
-        type: string
-      mph:
-        type: u32
       timestamp:
         type: string
   status-log:
@@ -82,6 +70,10 @@ topics:
     schema:
       value:
         type: status-location
+  tabulated-high:
+    schema:
+      value: 
+        type: status-total
 
 
 services:
@@ -235,3 +227,55 @@ services:
       - type: topic
         id: high-severity
 
+  ########################################
+  tabulated-high:
+    sources:
+      - type: topic
+        id: high-severity
+
+    states:
+      count-high:
+        type: keyed-state
+        properties:
+          key:
+            type: string
+          value:
+            type: u32
+            
+    window:
+      tumbling:
+        duration: 10s
+
+      assign-timestamp:
+        run: |
+          fn assign_event_timestamp_high(log: StatusLog, event_time: i64) -> Result<i64, String> {
+            Ok(event_time)
+          }
+      partition:
+        assign-key:
+          run: |
+            fn key_by_location_high(log: StatusLog) -> Result<String, String> {
+              Ok(log.location.to_string())
+            }
+      
+        update-state:
+          run: |
+            fn increment_location_count_high(log: StatusLog) -> Result<(), String> {
+              count_high().increment(1);
+              Ok(())
+            }
+
+      flush:
+        run: |
+          fn get_location_count_high() -> Result<StatusTotal, String> {
+            let mut cc = count_high().clone();
+            Ok(cc.iter().map(|entry| 
+              StatusLocation { 
+                location: entry.key.clone().to_string(), 
+                error_count: entry.value,
+              }
+            ).collect())
+          }
+    sinks:
+      - type: topic
+        id: tabulated-high

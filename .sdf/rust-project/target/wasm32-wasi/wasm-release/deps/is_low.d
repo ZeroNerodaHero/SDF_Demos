@@ -1,0 +1,14 @@
+/home/school/work/fluvio/SDF_Demos/.sdf/rust-project/target/wasm32-wasi/wasm-release/deps/is_low.wasm: topics/is-low/src/lib.rs /home/school/work/fluvio/SDF_Demos/.sdf/rust-project/topics/is-low/.wit/deps/car-processing-types/types.wit /home/school/work/fluvio/SDF_Demos/.sdf/rust-project/topics/is-low/.wit/deps/arrow/arrow.wit /home/school/work/fluvio/SDF_Demos/.sdf/rust-project/topics/is-low/.wit/deps/df/df.wit /home/school/work/fluvio/SDF_Demos/.sdf/rust-project/topics/is-low/.wit/deps/df/test.wit /home/school/work/fluvio/SDF_Demos/.sdf/rust-project/topics/is-low/.wit/deps/row-state/row.wit /home/school/work/fluvio/SDF_Demos/.sdf/rust-project/topics/is-low/.wit/deps/row-state/test.wit /home/school/work/fluvio/SDF_Demos/.sdf/rust-project/topics/is-low/.wit/deps/value-state/value.wit /home/school/work/fluvio/SDF_Demos/.sdf/rust-project/topics/is-low/.wit/deps/value-state/test.wit /home/school/work/fluvio/SDF_Demos/.sdf/rust-project/topics/is-low/.wit/api.wit
+
+/home/school/work/fluvio/SDF_Demos/.sdf/rust-project/target/wasm32-wasi/wasm-release/deps/is_low.d: topics/is-low/src/lib.rs /home/school/work/fluvio/SDF_Demos/.sdf/rust-project/topics/is-low/.wit/deps/car-processing-types/types.wit /home/school/work/fluvio/SDF_Demos/.sdf/rust-project/topics/is-low/.wit/deps/arrow/arrow.wit /home/school/work/fluvio/SDF_Demos/.sdf/rust-project/topics/is-low/.wit/deps/df/df.wit /home/school/work/fluvio/SDF_Demos/.sdf/rust-project/topics/is-low/.wit/deps/df/test.wit /home/school/work/fluvio/SDF_Demos/.sdf/rust-project/topics/is-low/.wit/deps/row-state/row.wit /home/school/work/fluvio/SDF_Demos/.sdf/rust-project/topics/is-low/.wit/deps/row-state/test.wit /home/school/work/fluvio/SDF_Demos/.sdf/rust-project/topics/is-low/.wit/deps/value-state/value.wit /home/school/work/fluvio/SDF_Demos/.sdf/rust-project/topics/is-low/.wit/deps/value-state/test.wit /home/school/work/fluvio/SDF_Demos/.sdf/rust-project/topics/is-low/.wit/api.wit
+
+topics/is-low/src/lib.rs:
+/home/school/work/fluvio/SDF_Demos/.sdf/rust-project/topics/is-low/.wit/deps/car-processing-types/types.wit:
+/home/school/work/fluvio/SDF_Demos/.sdf/rust-project/topics/is-low/.wit/deps/arrow/arrow.wit:
+/home/school/work/fluvio/SDF_Demos/.sdf/rust-project/topics/is-low/.wit/deps/df/df.wit:
+/home/school/work/fluvio/SDF_Demos/.sdf/rust-project/topics/is-low/.wit/deps/df/test.wit:
+/home/school/work/fluvio/SDF_Demos/.sdf/rust-project/topics/is-low/.wit/deps/row-state/row.wit:
+/home/school/work/fluvio/SDF_Demos/.sdf/rust-project/topics/is-low/.wit/deps/row-state/test.wit:
+/home/school/work/fluvio/SDF_Demos/.sdf/rust-project/topics/is-low/.wit/deps/value-state/value.wit:
+/home/school/work/fluvio/SDF_Demos/.sdf/rust-project/topics/is-low/.wit/deps/value-state/test.wit:
+/home/school/work/fluvio/SDF_Demos/.sdf/rust-project/topics/is-low/.wit/api.wit:

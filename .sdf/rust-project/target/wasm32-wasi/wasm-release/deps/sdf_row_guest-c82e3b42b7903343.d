@@ -1,0 +1,10 @@
+/home/school/work/fluvio/SDF_Demos/.sdf/rust-project/target/wasm32-wasi/wasm-release/deps/libsdf_row_guest-c82e3b42b7903343.rmeta: /home/school/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sdf-row-guest-0.1.3/src/lib.rs /home/school/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sdf-row-guest-0.1.3/wit/deps/arrow/arrow.wit /home/school/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sdf-row-guest-0.1.3/wit/row.wit /home/school/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sdf-row-guest-0.1.3/wit/test.wit
+
+/home/school/work/fluvio/SDF_Demos/.sdf/rust-project/target/wasm32-wasi/wasm-release/deps/libsdf_row_guest-c82e3b42b7903343.rlib: /home/school/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sdf-row-guest-0.1.3/src/lib.rs /home/school/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sdf-row-guest-0.1.3/wit/deps/arrow/arrow.wit /home/school/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sdf-row-guest-0.1.3/wit/row.wit /home/school/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sdf-row-guest-0.1.3/wit/test.wit
+
+/home/school/work/fluvio/SDF_Demos/.sdf/rust-project/target/wasm32-wasi/wasm-release/deps/sdf_row_guest-c82e3b42b7903343.d: /home/school/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sdf-row-guest-0.1.3/src/lib.rs /home/school/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sdf-row-guest-0.1.3/wit/deps/arrow/arrow.wit /home/school/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sdf-row-guest-0.1.3/wit/row.wit /home/school/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sdf-row-guest-0.1.3/wit/test.wit
+
+/home/school/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sdf-row-guest-0.1.3/src/lib.rs:
+/home/school/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sdf-row-guest-0.1.3/wit/deps/arrow/arrow.wit:
+/home/school/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sdf-row-guest-0.1.3/wit/row.wit:
+/home/school/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sdf-row-guest-0.1.3/wit/test.wit:
