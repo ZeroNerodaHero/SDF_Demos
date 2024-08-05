@@ -120,23 +120,40 @@ services:
             fn update_speed_acc(bus: Vp) -> Result<(), String> {
               let mut bus_stat = cumulate_speed_acc();
               bus_stat.count +=1;
-              bus_stat.accel += bus.accel;
+              bus_stat.accel += bus.accel + 1000.0;
               bus_stat.speed += bus.speed;
               bus_stat.update();
               Ok(())
             }
       flush:
+        dependencies:
+          - name: serde_json
+            version: "1.0.60"
         run: |
           fn export_stats() -> Result<BusStatList, String> {
-            let mut blist = cumulate_speed_acc().clone();
-            Ok(blist.iter().map(|entry|
-              BusStat{
-                vehicle: "test".to_string(),
-                accel: entry.value.accel,
-                speed: 0.0,
-                count: 0,
-              }
-            ).collect())
+            let blist = cumulate_speed_acc();
+
+            let table = blist.sql("select * from cumulate-speed-acc")?;
+            let rows = table.rows()?;
+            let columns = rows.schema(["vehicle","count","accel","speed"])?;
+
+            let mut bus_stat_list = vec![];
+            match &columns[..] {
+              [vehicle,count,accel,speed] => {
+                  while rows.next() {
+                    let bus = rows.str(&vehicle)?;
+                    let count = rows.u32(&count)?;
+                    let accel = rows.f64(&accel)?;
+                    let speed = rows.f64(&speed)?;
+                    let bus_stat = BusStat { vehicle,count,accel,speed};
+                    bus_stat_list.push(bus_stat);
+                  }
+              },
+                _ => return Err(anyhow::anyhow!("unexpected schema")),
+            }
+
+           
+            Ok(bus_stat_list)
           }
     sinks:
       - type: topic

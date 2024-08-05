@@ -1,2 +1,0 @@
-cargo:rustc-link-lib=wit_bindgen_cabi_realloc0_25_0
-cargo:rustc-link-search=native=/home/school/work/fluvio/SDF_Demos/.sdf/rust-project/target/wasm32-wasi/wasm-release/build/wit-bindgen-rt-450ed67139862327/out

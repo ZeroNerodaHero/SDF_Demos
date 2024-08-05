@@ -1,6 +1,8 @@
+# Perform word count on sentences in non windowed transformation
+
 apiVersion: 0.4.0
 meta:
-  name: car-processing
+  name: helsinki-stat
   version: 0.1.0
   namespace: examples
 
@@ -12,270 +14,147 @@ config:
       position: End
 
 types:
-  car:
+  # VP is the vehicle position
+  vp:
     type: object
     properties:
-      timestamp:
+      vehicle:
+        type: i32
+      tst:
         type: string
-  status-log:
+      speed:
+        type: f64
+      lat:
+        type: f64
+      long:
+        type: f64
+      route:
+        type: string
+      accel:
+        type: f64
+  bus-stat:
     type: object
     properties:
-      location: 
-        type: u32
-      error: 
-        type: u32
-      error_id:
-        type: u32
-      reason:
+      vehicle:
         type: string
-  status-location:
-    type: object
-    properties:
-      location:
-        type: string
-      error_count:
+      accel: 
+        type: f64
+      speed: 
+        type: f64
+      count:  
         type: u32
-  status-total:
+  bus-stat-list:
     type: list
     items:
-      type: status-location
-  
+      type: bus-stat
 
+#########################################################
 topics:
-  cars:
+  helsinki:
     schema:
       value:
-        type: car
-  status:
+        type: vp
+  helsinki-subset:
     schema:
       value:
-        type: status-log
-  high-severity:
+        type: vp
+  cumulate-accel:
     schema:
       value:
-        type: status-log
-  low-severity:
-    schema:
-      value:
-        type: status-log
-  status-total:
-    schema:
-      value:
-        type: status-total
-  update-severity:
-    schema:
-      value:
-        type: status-total
-  upgrade-severity:
-    schema:
-      value:
-        type: status-location
-  tabulated-high:
-    schema:
-      value: 
-        type: status-total
+        type: bus-stat-list
 
-
+#########################################################
 services:
-  re-encode:
+  easymap:
     sources:
       - type: topic
-        id: cars
-
+        id: helsinki
+    
     transforms:
-      - operator: map
+      - operator: filter
+        run: |
+          fn subset_helsinki(pos: Vp) -> Result<bool ,String> {
+            Ok(pos.vehicle < 300)
+          }
+    
+    sinks:
+      - type: topic
+        id: helsinki-subset
+
+  cumulate-speed-acc:
+    sources:
+      - type: topic
+        id: helsinki-subset
+    states:
+      cumulate-speed-acc:
+        type: keyed-state
+        properties:
+          key: 
+            type: string
+          value:
+            type: arrow-row
+            properties:
+              count: 
+                type: u32
+              accel: 
+                type: f64
+              speed:
+                type: f64
+            
+    window:
+      tumbling:
+        duration: 5s
+      assign-timestamp:
+        run: |
+          fn assign_event_timestamp(bus: Vp, event_time: i64) -> Result<i64, String>{
+            Ok(event_time)
+          }
+      partition:
+        assign-key:
+          run: |
+            fn key_by_id(bus: Vp) -> Result<String,String> {
+              Ok(bus.vehicle.to_string())
+            }
+        update-state:
+          run: | 
+            fn update_speed_acc(bus: Vp) -> Result<(), String> {
+              let mut bus_stat = cumulate_speed_acc();
+              bus_stat.count +=1;
+              bus_stat.accel += bus.accel + 1000.0;
+              bus_stat.speed += bus.speed;
+              bus_stat.update();
+              Ok(())
+            }
+      flush:
         dependencies:
-          - name: rand
-            version: "0.8"
+          - name: serde_json
+            version: "1.0.60"
         run: |
-          fn randencode(car: Car) -> Result<StatusLog, String> {
-            use rand::Rng;
-            const MAX_LOCATION: u32 = 10;
+          fn export_stats() -> Result<BusStatList, String> {
+            let blist = cumulate_speed_acc();
 
-            let mut rng = rand::thread_rng();
-            let errorCode : u32 = rng.gen::<u32>() % 3;
-            let mut errorMsg : String = "No Error".to_string();
-            if errorCode == 1 {
-              errorMsg = "Low Error".to_string();
-            } else{
-              errorMsg = "High Error".to_string();
+            let table = blist.sql("select * from cumulate-speed-acc")?;
+            let rows = table.rows()?;
+            let columns = rows.schema(["vehicle","count","accel","speed"])?;
+
+            let mut bus_stat_list = vec![];
+            match &columns[..] {
+              [vehicle,count,accel,speed] => {
+                  while rows.next() {
+                    let bus = rows.str(&vehicle)?;
+                    let count = rows.u32(&count)?;
+                    let accel = rows.f64(&accel)?;
+                    let speed = rows.f64(&speed)?;
+                    let bus_stat = BusStat { vehicle,count,accel,speed};
+                    bus_stat_list.push(bus_stat);
+                  }
+              },
+                _ => return Err(anyhow::anyhow!("unexpected schema")),
             }
-            let log: StatusLog = StatusLog {
-              location: rng.gen::<u32>() % MAX_LOCATION,
-              error: errorCode,
-              error_id: rng.gen(),
-              reason: errorMsg
-            };
-            Ok(log)
+
+           
+            Ok(bus_stat_list)
           }
     sinks:
       - type: topic
-        id: status
-  ########################################            
-  filter-severity:
-    sources:
-      - type: topic
-        id: status
-    sinks:
-      - type: topic
-        id: high-severity
-        transforms:
-          - operator: filter
-            run: |
-              fn is_high(log: StatusLog) -> Result<bool, String> {
-                Ok(log.error == 2)
-              }
-      - type: topic
-        id: low-severity
-        transforms:
-          - operator: filter
-            run: |
-              fn is_low(log: StatusLog) -> Result<bool, String> {
-                Ok(log.error == 1)
-              }
-  ########################################            
-  count-by-location:
-    sources:
-      - type: topic
-        id: low-severity
-
-    states:
-      count-by-location:
-        type: keyed-state
-        properties:
-          key:
-            type: string
-          value:
-            type: u32
-            
-    window:
-      tumbling:
-        duration: 10s
-
-      assign-timestamp:
-        run: |
-          fn assign_event_timestamp(log: StatusLog, event_time: i64) -> Result<i64, String> {
-            Ok(event_time)
-          }
-      partition:
-        assign-key:
-          run: |
-            fn key_by_location(log: StatusLog) -> Result<String, String> {
-              Ok(log.location.to_string())
-            }
-      
-        update-state:
-          run: |
-            fn increment_location_count(log: StatusLog) -> Result<(), String> {
-              count_by_location().increment(1);
-              Ok(())
-            }
-
-      flush:
-        run: |
-          fn get_location_count() -> Result<StatusTotal, String> {
-            let mut cc = count_by_location().clone();
-            Ok(cc.iter().map(|entry| 
-              StatusLocation { 
-                location: entry.key.clone().to_string(), 
-                error_count: entry.value,
-              }
-            ).collect())
-          }
-    sinks:
-      - type: topic
-        id: update-severity
-  ########################################            
-  split-severity:
-    sources:
-      - type: topic
-        id: update-severity
-    transforms:
-      - operator: flat-map
-        run: |
-          fn map_high_sev(logList: StatusTotal) -> Result<Vec<StatusLocation>, String> {
-            Ok(logList)
-          }
-    sinks:
-      - type: topic
-        id: upgrade-severity
-  ########################################
-  send-highAlerts:
-    sources:
-      - type: topic
-        id: upgrade-severity
-    transforms:
-      - operator: filter-map
-        run: |
-          fn upgrade_status(status: StatusLocation) -> Result<Option<StatusLog>, String> {
-            if status.error_count < 2 {
-              return Ok(None);
-            }
-            let num: u32 = status.location.parse().unwrap();
-            Ok(
-              Some(StatusLog{
-                location: num,
-                error: 2,
-                error_id: 1000,
-                reason: format!("Upgraded Error. Total Errors {} in window",status.error_count).to_string()
-              })
-            )
-          }
-
-
-    sinks:
-      - type: topic
-        id: high-severity
-
-  ########################################
-  tabulated-high:
-    sources:
-      - type: topic
-        id: high-severity
-
-    states:
-      count-high:
-        type: keyed-state
-        properties:
-          key:
-            type: string
-          value:
-            type: u32
-            
-    window:
-      tumbling:
-        duration: 10s
-
-      assign-timestamp:
-        run: |
-          fn assign_event_timestamp_high(log: StatusLog, event_time: i64) -> Result<i64, String> {
-            Ok(event_time)
-          }
-      partition:
-        assign-key:
-          run: |
-            fn key_by_location_high(log: StatusLog) -> Result<String, String> {
-              Ok(log.location.to_string())
-            }
-      
-        update-state:
-          run: |
-            fn increment_location_count_high(log: StatusLog) -> Result<(), String> {
-              count_high().increment(1);
-              Ok(())
-            }
-
-      flush:
-        run: |
-          fn get_location_count_high() -> Result<StatusTotal, String> {
-            let mut cc = count_high().clone();
-            Ok(cc.iter().map(|entry| 
-              StatusLocation { 
-                location: entry.key.clone().to_string(), 
-                error_count: entry.value,
-              }
-            ).collect())
-          }
-    sinks:
-      - type: topic
-        id: tabulated-high
+        id: cumulate-accel
