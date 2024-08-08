@@ -1,28 +1,151 @@
-apiVersion: 0.1.0
+apiVersion: 0.4.0
 meta:
-  version: 0.2.6
-  name: helsinki-mqtt
-  type: mqtt-source
-  topic: helsinki
-mqtt:
-  url: "mqtt://mqtt.hsl.fi"
-  topic: "/hfp/v2/journey/ongoing/vp/bus/#"
-  payload_output_type: json
+  name: helsinki-stat
+  version: 0.1.0
+  namespace: examples
 
-  
-transforms:
-  - uses: infinyon/jolt@0.4.1
-    with:
-      spec:
-        - operation: shift
-          spec:
-            payload:
-              VP:
-                lat: "lat"
-                long: "long"
-                veh: "vehicle"
-                route: "route"
-                spd: "speed"
-                tst: "tst"
-                acc: "accel"
-                drst: "drst"
+config:
+  converter: json
+  consumer:
+    default_starting_offset:
+      value: 0
+      position: End
+
+types:
+  # VP is the vehicle position
+  vp:
+    type: object
+    properties:
+      vehicle:
+        type: i32
+      tst:
+        type: string
+      speed:
+        type: f64
+      lat:
+        type: f64
+      long:
+        type: f64
+      route:
+        type: string
+      accel:
+        type: f64
+      drst:
+        type: i32
+  vptrun:
+    type: object
+    properties:
+      vehicleroute:
+        type: string
+      count:
+        type: u32
+  vplist:
+    type: list
+    items:
+      type: vptrun
+
+#########################################################
+topics:
+  helsinki:
+    schema:
+      value:
+        type: vp
+  helsinki-subset:
+    schema:
+      value:
+        type: vp
+  door-open:
+    schema:
+      value:
+        type: vp
+  door-open-total:
+    schema:
+      value:
+        type: vplist
+#########################################################
+services:
+  easymap:
+    sources:
+      - type: topic
+        id: helsinki
+
+    transforms:
+      - operator: filter
+        run: |
+          fn subset_helsinki(pos: Vp) -> Result<bool ,String> {
+            Ok(pos.route == "4400")
+          }
+
+    sinks:
+      - type: topic
+        id: helsinki-subset
+
+  filterbydoor:
+    sources:
+      - type: topic
+        id: helsinki
+
+    transforms:
+      - operator: filter
+        run: |
+          fn door_open_filter(pos: Vp) -> Result<bool ,String> {
+            Ok(pos.drst == 1)
+          }
+    sinks:
+      - type: topic
+        id: door-open
+
+  countdoors:
+    sources:
+      - type: topic
+        id: door-open
+    states:
+      count-by-route:
+        type: keyed-state
+        properties:
+          key:
+            type: string
+          value:
+            type: u32
+    window:
+      tumbling:
+        duration: 10s
+
+      assign-timestamp:
+        run: |
+          fn assign_event_timestamp(pos: Vp, event_time: i64) -> Result<i64, String> {
+            Ok(event_time)
+          }
+      partition:
+        assign-key:
+          run: |
+            fn key_by_route(pos: Vp) -> Result<String, String> {
+              Ok(pos.route)
+            }
+        transforms:
+          # BUG: THIS SHOULD NOT BE NEEDED
+          - operator: filter
+            run: |
+              fn pass_all(_pos: Vp) -> Result<bool, String> {
+                 Ok(true)
+              }
+      update_state:
+        run: |
+          fn increment_route(_pos: Vp) -> Result<(), String> {
+            count_by_route().increment(1);
+            Ok(())
+          }
+      flush:
+        run: |
+          fn get_route_count() -> Result<Vplist, String> {
+            let cc = count_by_route().clone();
+            Ok(cc.iter().map(|entry| 
+              Vptrun { 
+                vehicleroute: entry.key.clone().to_string(),
+                count: entry.value
+              }
+            ).collect())
+          }
+    sinks:
+      - type: topic
+        id: door-open-total
