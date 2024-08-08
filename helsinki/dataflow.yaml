@@ -32,21 +32,20 @@ types:
         type: string
       accel:
         type: f64
-  bus-stat:
+      drst:
+        type: i32
+  vptrun:
     type: object
     properties:
-      vehicle:
+      vehicleroute: 
         type: string
-      accel: 
-        type: f64
-      speed: 
-        type: f64
-      count:  
+      count:
         type: u32
-  bus-stat-list:
+  vplist:
     type: list
     items:
-      type: bus-stat
+      type: vptrun
+
 
 #########################################################
 topics:
@@ -58,11 +57,14 @@ topics:
     schema:
       value:
         type: vp
-  cumulate-accel:
+  door-open:
     schema:
       value:
-        type: bus-stat-list
-
+        type: vp
+  door-open-total:
+    schema:
+      value:
+        type: vplist
 #########################################################
 services:
   easymap:
@@ -74,87 +76,72 @@ services:
       - operator: filter
         run: |
           fn subset_helsinki(pos: Vp) -> Result<bool ,String> {
-            Ok(pos.vehicle < 300)
+            Ok(pos.route == "4400")
           }
     
     sinks:
       - type: topic
         id: helsinki-subset
 
-  cumulate-speed-acc:
+  filterbydoor:
     sources:
       - type: topic
-        id: helsinki-subset
+        id: helsinki
+    
+    transforms:
+      - operator: filter
+        run: |
+          fn door_open_filter(pos: Vp) -> Result<bool ,String> {
+            Ok(pos.drst == 1)
+          }
+    sinks:
+      - type: topic
+        id: door-open
+
+  countdoors:
+    sources:
+      - type: topic
+        id: door-open
     states:
-      cumulate-speed-acc:
+      count-by-route:
         type: keyed-state
         properties:
-          key: 
+          key:
             type: string
           value:
-            type: arrow-row
-            properties:
-              count: 
-                type: u32
-              accel: 
-                type: f64
-              speed:
-                type: f64
-            
+            type: u32
     window:
       tumbling:
-        duration: 5s
+        duration: 10s
+
       assign-timestamp:
-        run: |
-          fn assign_event_timestamp(bus: Vp, event_time: i64) -> Result<i64, String>{
+        run: | 
+          fn assign_event_timestamp(pos: Vp, event_time: i64) -> Result<i64, String> {
             Ok(event_time)
           }
       partition:
         assign-key:
           run: |
-            fn key_by_id(bus: Vp) -> Result<String,String> {
-              Ok(bus.vehicle.to_string())
+            fn key_by_route(pos: Vp) -> Result<String, String> {
+              Ok(pos.route)
             }
-        update-state:
-          run: | 
-            fn update_speed_acc(bus: Vp) -> Result<(), String> {
-              let mut bus_stat = cumulate_speed_acc();
-              bus_stat.count +=1;
-              bus_stat.accel += bus.accel + 1000.0;
-              bus_stat.speed += bus.speed;
-              bus_stat.update();
+      update_state:
+        run: |
+            fn increment_route(pos: Vp) -> Result<(), String> {
+              count_by_route().increment(1);
               Ok(())
             }
       flush:
-        dependencies:
-          - name: serde_json
-            version: "1.0.60"
         run: |
-          fn export_stats() -> Result<BusStatList, String> {
-            let blist = cumulate_speed_acc();
-
-            let table = blist.sql("select * from cumulate-speed-acc")?;
-            let rows = table.rows()?;
-            let columns = rows.schema(["vehicle","count","accel","speed"])?;
-
-            let mut bus_stat_list = vec![];
-            match &columns[..] {
-              [vehicle,count,accel,speed] => {
-                  while rows.next() {
-                    let bus = rows.str(&vehicle)?;
-                    let count = rows.u32(&count)?;
-                    let accel = rows.f64(&accel)?;
-                    let speed = rows.f64(&speed)?;
-                    let bus_stat = BusStat { vehicle,count,accel,speed};
-                    bus_stat_list.push(bus_stat);
-                  }
-              },
-                _ => return Err(anyhow::anyhow!("unexpected schema")),
-            }
-
-           
-            Ok(bus_stat_list)
+          fn get_route_count() -> Result<Vplist, String> {
+            let mut cc = count_by_route().clone();
+            Ok(cc.iter().map(|entry| 
+              Vptrun { 
+                vehicleroute: entry.key.clone().to_string(),
+                count: entry.value
+              }
+            ).collect())
           }
     sinks:
       - type: topic
-        id: cumulate-accel
+        id: door-open-total
