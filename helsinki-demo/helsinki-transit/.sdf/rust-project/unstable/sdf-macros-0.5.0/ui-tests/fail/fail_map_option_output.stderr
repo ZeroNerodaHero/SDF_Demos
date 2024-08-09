@@ -1,5 +1,0 @@
-error: Invalid option output type for map operator, maybe you meant filter_map?
-  --> ui-tests/fail/fail_map_option_output.rs:10:39
-   |
-10 | fn map_fn(my_input: String) -> Result<Option<String>> {
-   |                                       ^^^^^^

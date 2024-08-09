@@ -1,5 +1,0 @@
-error: Expected i64 argument for second argument of assign_timestamp
-  --> ui-tests/fail/fail_assign_timestamp_invalid_input.rs:10:43
-   |
-10 | fn assign_timestamp_fn(_my_input: String, event_timestamp: i32) -> Result<i64> {
-   |                                           ^^^^^^^^^^^^^^^

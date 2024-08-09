@@ -1,7 +1,0 @@
-package examples:basic-filter-map;
-interface basic-filter-map-service {
-    filter-map-fn: func(input: string) -> result<option<string>,string>;
-}
-world basic-filter-map-world {
-    export basic-filter-map-service;
-}

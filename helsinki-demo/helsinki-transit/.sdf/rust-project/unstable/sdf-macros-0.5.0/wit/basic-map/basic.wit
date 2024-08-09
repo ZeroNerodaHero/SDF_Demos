@@ -1,7 +1,0 @@
-package examples:basic-map;
-interface basic-map-service {
-    map-fn: func(input: string) -> result<string,string>;
-}
-world basic-map-world {
-    export basic-map-service;
-}

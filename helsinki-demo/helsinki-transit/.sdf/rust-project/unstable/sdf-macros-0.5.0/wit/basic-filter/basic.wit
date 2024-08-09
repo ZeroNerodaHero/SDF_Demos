@@ -1,7 +1,0 @@
-package examples:basic-filter;
-interface basic-filter-service {
-    filter-fn: func(input: string) -> result<bool,string>;
-}
-world basic-filter-world {
-    export basic-filter-service;
-}

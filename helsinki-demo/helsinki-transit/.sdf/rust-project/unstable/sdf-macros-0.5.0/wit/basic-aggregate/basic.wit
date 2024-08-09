@@ -1,7 +1,0 @@
-package examples:basic-aggregate;
-interface basic-aggregate-service {
-    aggregate-fn: func() -> result<list<string>,string>;
-}
-world basic-aggregate-world {
-    export basic-aggregate-service;
-}

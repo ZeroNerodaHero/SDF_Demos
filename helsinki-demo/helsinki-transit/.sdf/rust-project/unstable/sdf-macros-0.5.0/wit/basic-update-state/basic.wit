@@ -1,7 +1,0 @@
-package examples:basic-update-state;
-interface basic-update-state-service {
-    update-state-fn: func(input: string) -> result<_,string>;
-}
-world basic-update-state-world {
-    export basic-update-state-service;
-}

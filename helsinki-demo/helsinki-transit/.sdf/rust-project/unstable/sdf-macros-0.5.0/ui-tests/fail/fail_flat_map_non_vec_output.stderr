@@ -1,5 +1,0 @@
-error: Invalid output type for flat_map operator. It must be a Vec<_>
-  --> ui-tests/fail/fail_flat_map_non_vec_output.rs:10:44
-   |
-10 | fn flat_map_fn(my_input: String) -> Result<u64> {
-   |                                            ^^^

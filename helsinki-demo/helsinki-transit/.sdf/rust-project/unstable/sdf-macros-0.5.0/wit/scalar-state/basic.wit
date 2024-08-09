@@ -1,9 +1,0 @@
-package examples:scalar-state;
-interface scalar-state-service {
-    use sdf:value-state/values.{ value32 };
-    scalar-state-fn: func(input: string) -> result<_,string>;
-    init-count-per-word-scalar: func( value: value32 );
-}
-world scalar-state-world {
-    export scalar-state-service;
-}

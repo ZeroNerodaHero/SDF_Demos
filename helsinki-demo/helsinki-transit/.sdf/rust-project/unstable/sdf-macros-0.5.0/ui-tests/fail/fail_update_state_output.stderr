@@ -1,5 +1,0 @@
-error: Invalid output type for update_state operator. It must be an unit type `()`
-  --> ui-tests/fail/fail_update_state_output.rs:10:48
-   |
-10 | fn update_state_fn(my_input: String) -> Result<String> {
-   |                                                ^^^^^^

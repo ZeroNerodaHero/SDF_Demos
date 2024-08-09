@@ -1,7 +1,0 @@
-package examples:map-with-key;
-interface map-with-key-service {
-    map-fn: func(key: option<string>, input: string) -> result<string,string>;
-}
-world map-with-key-world {
-    export map-with-key-service;
-}
