@@ -2,6 +2,8 @@
 # Demo of SSDK with helsinki metro MQTT
 A dataflow example that incorporates live data from helsinki found on digitransit [link](https://digitransit.fi/en/developers/apis/4-realtime-api/vehicle-positions/high-frequency-positioning/#event-types) using connectors as well transformations with SDF. A live demo via express and react is also included.
 
+![Visual Demo](helsinki-visual-demo.png)
+
 ## Dataflow Primitives
 
  - *filter*
@@ -19,21 +21,13 @@ There is a demonstration of the utilizing sql queries to select the collected da
 ```
 $ fluvio hub smartmodule download infinyon/jolt@0.4.1
 ```
-## Start MQTT connector using cloud
-### Start MQTT connector
-
-Then start the MQTT connector using the following command:
-
-```
-fluvio cloud connector create --config mqtt-helsinki.yaml
-```
 
 ## Start local connector
 To start a local instance of the connector. 
 ```
 cd connector
-cdk hub download infinyon/mqtt-source@0.2.6
-cdk deploy start --ipkg infinyon-mqtt-source-0.2.6.ipkg --config mqtt-helsinki.yaml
+cdk hub download infinyon/mqtt-source@0.2.8
+cdk deploy start --ipkg infinyon-mqtt-source-0.2.8.ipkg --config mqtt-helsinki.yaml
 ```
 
 You should see the following output:

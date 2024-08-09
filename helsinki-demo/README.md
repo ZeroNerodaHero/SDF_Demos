@@ -21,21 +21,12 @@ There is a demonstration of the utilizing sql queries to select the collected da
 ```
 $ fluvio hub smartmodule download infinyon/jolt@0.4.1
 ```
-## Start MQTT connector using cloud
-### Start MQTT connector
-
-Then start the MQTT connector using the following command:
-
-```
-fluvio cloud connector create --config mqtt-helsinki.yaml
-```
-
 ## Start local connector
 To start a local instance of the connector. 
 ```
 cd connector
-cdk hub download infinyon/mqtt-source@0.2.6
-cdk deploy start --ipkg infinyon-mqtt-source-0.2.6.ipkg --config mqtt-helsinki.yaml
+cdk hub download infinyon/mqtt-source@0.2.8
+cdk deploy start --ipkg infinyon-mqtt-source-0.2.8.ipkg --config mqtt-helsinki.yaml
 ```
 
 You should see the following output:
@@ -111,15 +102,17 @@ Run ```sdf clean ``` to clean
 
 ## To Run the Visual Demo
 ### Start Websocket via Express
-Navigate to websocket and run 
+Navigate to websocket and run node
 ```
+cd helsinki-express-websocket
 npm install
 node app.js
 ```
 Make sure to ensure port 3000 is open.
 ### Run react frontend
-Navigate to the frontend folder and run
+Navigate to the frontend folder and serve the frontend
 ```
+cd helsinki-frontend
 npm install
 npm install -g serve
 serve -s build/

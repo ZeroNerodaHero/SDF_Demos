@@ -11,14 +11,6 @@ Demo of SSDK with helsinki metro MQTT
 $ fluvio hub smartmodule download infinyon/jolt@0.4.1
 ```
 
-## Start MQTT connector
-
-Then start the MQTT connector using the following command:
-
-```
-fluvio cloud connector create --config mqtt-helsinki.yaml
-```
-
 ## Start local connector
 To start a local instance of the connector. 
 ```
