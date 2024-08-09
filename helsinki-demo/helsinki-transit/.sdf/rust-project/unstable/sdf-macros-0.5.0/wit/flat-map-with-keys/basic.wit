@@ -1,0 +1,7 @@
+package examples:flat-map-with-keys;
+interface flat-map-with-keys-service {
+    flat-map-fn: func(key: option<string>, input: string) -> result<list<tuple<option<string>,string>>,string>;
+}
+world flat-map-with-keys-world {
+    export flat-map-with-keys-service;
+}

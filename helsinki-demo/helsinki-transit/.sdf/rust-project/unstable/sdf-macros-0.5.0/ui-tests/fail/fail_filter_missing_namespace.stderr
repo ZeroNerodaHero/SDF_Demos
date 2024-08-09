@@ -1,0 +1,5 @@
+error: Missing namespace. Try passing the namespace with: '#[sdf(namespace = "<namespace>")]
+ --> ui-tests/fail/fail_filter_missing_namespace.rs:5:5
+  |
+5 |     filter,
+  |     ^^^^^^

@@ -1,0 +1,5 @@
+error: Missing operator type. Supported: '#[sdf(<op_type>)]' where <op_type> is one of: filter, map, filter_map, flat_map, assign_key, assign_timestamp, aggregate, update_state
+ --> ui-tests/fail/fail_missing_operator.rs:5:5
+  |
+5 |     path = "../../../../crates/sdf-macros/wit/basic-filter",
+  |     ^^^^

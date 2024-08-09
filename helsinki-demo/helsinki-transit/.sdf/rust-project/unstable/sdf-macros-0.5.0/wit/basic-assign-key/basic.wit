@@ -1,0 +1,7 @@
+package examples:basic-assign-key;
+interface basic-assign-key-service {
+    assign-key-fn: func(input: string) -> result<string,string>;
+}
+world basic-assign-key-world {
+    export basic-assign-key-service;
+}

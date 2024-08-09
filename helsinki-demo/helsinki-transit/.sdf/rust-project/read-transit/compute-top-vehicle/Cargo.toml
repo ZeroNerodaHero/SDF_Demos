@@ -1,0 +1,20 @@
+[package]
+name = "compute_top_vehicle"
+version = "0.0.0"
+edition = "2021"
+description = ""
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+## GENERATED DEPENDENCIES
+anyhow = { workspace = true }
+serde = { workspace = true }
+wit-bindgen = { workspace = true, features = ["macros"]}
+sdf-macros = { workspace = true }
+bson = { workspace = true }
+simd-json = { workspace = true }
+
+sdfg = { workspace = true }
+## END OF GENERATED DEPENDENCIES

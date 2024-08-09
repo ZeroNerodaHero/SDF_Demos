@@ -1,0 +1,5 @@
+error: Invalid output type for assign_timestamp operator. It must be an i64
+  --> ui-tests/fail/fail_assign_timestamp_invalid_output.rs:10:75
+   |
+10 | fn assign_timestamp_fn(_my_input: String, event_timestamp: i64) -> Result<String> {
+   |                                                                           ^^^^^^

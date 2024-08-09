@@ -1,0 +1,5 @@
+error: Invalid state type. Supported types: i32, row, table. list_i32, list_document and document
+  --> ui-tests/fail/fail_state_invalid_type.rs:11:9
+   |
+11 |         ty = u32,
+   |         ^^

@@ -1,0 +1,7 @@
+package examples:basic-assign-timestamp;
+interface basic-assign-timestamp-service {
+    assign-timestamp-fn: func(input: string, event: s64) -> result<s64,string>;
+}
+world basic-assign-timestamp-world {
+    export basic-assign-timestamp-service;
+}

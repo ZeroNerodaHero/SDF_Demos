@@ -1,0 +1,7 @@
+package examples:map-with-output-key;
+interface map-with-output-key-service {
+    map-fn: func(input: string) -> result<tuple<option<string>,string>,string>;
+}
+world map-with-output-key-world {
+    export map-with-output-key-service;
+}

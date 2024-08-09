@@ -1,0 +1,5 @@
+error: Expected 0 input arguments. Found 1
+  --> ui-tests/fail/fail_aggregate_invalid_input.rs:10:17
+   |
+10 | fn aggregate_fn(input: String) -> Result<Vec<String>> {
+   |                 ^^^^^

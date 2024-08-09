@@ -1,0 +1,5 @@
+error: Invalid state configuration. Expected a block {{ .. }}
+  --> ui-tests/fail/fail_row_state_invalid_update_fn.rs:13:21
+   |
+13 |         update_fn = todo!(),
+   |                     ^^^^

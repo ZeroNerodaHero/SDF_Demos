@@ -1,0 +1,5 @@
+error: Expected bool output for filter operator
+  --> ui-tests/fail/fail_filter_non_boolean.rs:10:42
+   |
+10 | fn filter_fn(my_input: String) -> Result<String> {
+   |                                          ^^^^^^

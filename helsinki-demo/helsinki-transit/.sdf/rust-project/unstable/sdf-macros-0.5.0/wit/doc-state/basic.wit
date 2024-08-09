@@ -1,0 +1,14 @@
+package examples:doc-state;
+interface doc-state-service {
+    doc-state-fn: func(input: string) -> result<_,string>;
+    use sdf:document-state/document.{ document-value };
+    init-count-per-word: func( value: document-value);
+
+    record count-per-word-item-value {
+      count: s32,
+      last-match: string,
+    }
+}
+world doc-state-world {
+    export doc-state-service;
+}

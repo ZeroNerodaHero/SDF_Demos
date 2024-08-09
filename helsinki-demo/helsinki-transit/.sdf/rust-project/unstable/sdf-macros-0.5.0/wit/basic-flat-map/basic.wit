@@ -1,0 +1,7 @@
+package examples:basic-flat-map;
+interface basic-flat-map-service {
+    flat-map-fn: func(input: string) -> result<list<string>,string>;
+}
+world basic-flat-map-world {
+    export basic-flat-map-service;
+}

@@ -1,0 +1,18 @@
+package examples:aggregate-with-scalar-state;
+interface aggregate-with-scalar-state-service {
+    aggregate-fn: func() -> result<list<string>,string>;
+
+    type my-state-item-value = u32;
+
+    record my-state-item {
+        key: string,
+        value: my-state-item-value,
+    }
+
+    type my-state = list<my-state-item>;
+    init-my-state: func( value: my-state);
+}
+world aggregate-with-scalar-state-world {
+    export aggregate-with-scalar-state-service;
+}
+

@@ -1,0 +1,5 @@
+error: Invalid output type for filter_map operator. It must be an Option<_>
+  --> ui-tests/fail/fail_filter_map_non_option_output.rs:10:46
+   |
+10 | fn filter_map_fn(my_input: String) -> Result<u64> {
+   |                                              ^^^

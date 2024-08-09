@@ -1,0 +1,5 @@
+error: Invalid output type for map operator
+  --> ui-tests/fail/fail_map_invalid_output.rs:10:39
+   |
+10 | fn map_fn(my_input: String) -> Result<()> {
+   |                                       ^^

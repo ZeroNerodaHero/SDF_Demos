@@ -1,0 +1,13 @@
+package examples:custom-types;
+interface custom-types-service {
+    record my-input {
+        body: list<u8>
+    }
+    record my-output {
+        body: list<u8>
+    }
+    custom-types-fn: func(input: my-input) -> result<my-output,string>;
+}
+world custom-types-world {
+    export custom-types-service;
+}
