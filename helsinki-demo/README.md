@@ -2,7 +2,7 @@
 # Demo of SSDK with helsinki metro MQTT
 A dataflow example that incorporates live data from helsinki found on digitransit [link](https://digitransit.fi/en/developers/apis/4-realtime-api/vehicle-positions/high-frequency-positioning/#event-types) using connectors as well transformations with SDF. A live demo via express and react is also included.
 
-![Visual Demo](helsinki-visual-demo.png)
+![Stateful Dataflow](helsinki-visual-demo.png)
 
 ## Dataflow Primitives
 
@@ -101,6 +101,7 @@ Run ``` cdk deploy shutdown --name helsinki-mqtt ``` to delete the old connector
 Run ```sdf clean ``` to clean
 
 ## To Run the Visual Demo
+![Real time visualization of buses](helsinki-visual.png)
 ### Start Websocket via Express
 Navigate to websocket and run node
 ```
