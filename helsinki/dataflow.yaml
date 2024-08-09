@@ -43,7 +43,25 @@ types:
     type: list
     items:
       type: vptrun
+  vehicle-count:
+    type: object
+    properties:
+      vehicle:
+        type: i32
+      speed:
+        type: f64
+  vp-stat:
+    type: object
+    properties:
+      vehicle:
+        type: string
+      speed:
+        type: f64
 
+  top-vehicle:
+    type: list
+    items:
+      type: vp-stat
 #########################################################
 topics:
   helsinki:
@@ -62,6 +80,11 @@ topics:
     schema:
       value:
         type: vplist
+  route-speeding-total:
+    schema:
+      value:
+        type: vplist
+
 #########################################################
 services:
   easymap:
@@ -73,7 +96,7 @@ services:
       - operator: filter
         run: |
           fn subset_helsinki(pos: Vp) -> Result<bool ,String> {
-            Ok(pos.route == "4400")
+            Ok(pos.route == "5520")
           }
 
     sinks:
@@ -122,19 +145,12 @@ services:
             fn key_by_route(pos: Vp) -> Result<String, String> {
               Ok(pos.route)
             }
-        transforms:
-          # BUG: THIS SHOULD NOT BE NEEDED
-          - operator: filter
-            run: |
-              fn pass_all(_pos: Vp) -> Result<bool, String> {
-                 Ok(true)
-              }
-      update_state:
-        run: |
-          fn increment_route(_pos: Vp) -> Result<(), String> {
-            count_by_route().increment(1);
-            Ok(())
-          }
+        update_state:
+          run: |
+            fn increment_route(_pos: Vp) -> Result<(), String> {
+              count_by_route().increment(1);
+              Ok(())
+            }
       flush:
         run: |
           fn get_route_count() -> Result<Vplist, String> {
@@ -149,3 +165,53 @@ services:
     sinks:
       - type: topic
         id: door-open-total
+
+  countspeeding:
+    sources:
+      - type: topic
+        id: helsinki
+    states:
+      count-route-speeding:
+        type: keyed-state
+        properties:
+          key:
+            type: string
+          value:
+            type: u32
+    window:
+      tumbling:
+        duration: 10s
+
+      assign-timestamp:
+        run: |
+          fn assign_event_speedstamp(pos: Vp, event_time: i64) -> Result<i64, String> {
+            Ok(event_time)
+          }
+      partition:
+        assign-key:
+          run: |
+            fn key_speed(pos: Vp) -> Result<String, String> {
+              Ok(pos.route)
+            }
+        update_state:
+          run: |
+            fn increment_speedroute(_pos: Vp) -> Result<(), String> {
+              if(_pos.speed > 13.0){
+                count_route_speeding().increment(1);
+              }
+              Ok(())
+            }
+      flush:
+        run: |
+          fn get_speed_count() -> Result<Vplist, String> {
+            let cc = count_route_speeding().clone();
+            Ok(cc.iter().map(|entry| 
+              Vptrun { 
+                vehicleroute: entry.key.clone().to_string(),
+                count: entry.value
+              }
+            ).collect())
+          }
+    sinks:
+      - type: topic
+        id: route-speeding-total
