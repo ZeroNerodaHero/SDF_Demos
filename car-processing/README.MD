@@ -325,7 +325,7 @@ Exit `sdf` terminal and clean-up. The `--force` flag removes the topics:
 sdf clean --force
 ```
 
-#### Dockerfile
+## Dockerfile
 To run the above with a container, a Dockerfile is included.
 ```
 docker build -t carproc .
