@@ -8,7 +8,7 @@ ENV PATH "$PATH:/root/.fvm/bin"
 
 RUN apt-get update && \
     apt-get install -y \
-    curl unzip cargo build-essential pkg-config libssl-dev
+    curl unzip cargo 
 RUN apt-get install -y rustc
 RUN apt-get install -y rustup
 
