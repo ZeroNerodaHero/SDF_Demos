@@ -1,0 +1,46 @@
+body{
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+}
+#viewContainer{
+    display: grid;
+    position: absolute;
+    height: 95vh;
+    width: 95vw;
+    grid-template-rows: 80% 20%;
+}
+#infoGrapher{
+    display: grid;
+    grid-template-rows: 75% 20%;
+}
+#messageHeader{
+    background-color: black;
+    width: fit-content;
+    color: white;
+    padding: 0px 7px;
+}
+#messages{
+    background-color: #bdbdbd;
+    display: grid;
+    font-size: 0.5rem;
+    overflow: scroll;
+    height: 100%;
+    padding: 3px 15px;
+}
+#colorGraph{
+    background-color: #bdbdbd;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+#printSpliterCont{
+    display: grid;
+    grid-template-columns: 40% 60%;
+    grid-template-rows: 100%;
+    overflow: hidden;
+}
+
+#printSpliterCont > div{
+    overflow-y: scroll;
+}
