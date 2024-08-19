@@ -1,0 +1,12 @@
+apiVersion: 0.1.0
+meta:
+  version: 0.3.8
+  name: coin-test
+  type: http-source
+  topic: coin-test
+  
+http:
+  endpoint: https://api.coincap.io/v2/assets
+  interval: 10s
+  headers:
+    - "Cache-Control: no-cache"

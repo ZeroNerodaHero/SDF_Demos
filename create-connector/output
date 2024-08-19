@@ -1,0 +1,305 @@
+[2m2024-08-19T22:00:20.264284Z[0m [32m INFO[0m [2mhttp_source[0m[2m:[0m Using EnvSecretStore
+[2m2024-08-19T22:00:20.264352Z[0m [32m INFO[0m [2mhttp_source[0m[2m:[0m Reading config file from: /home/eve/fluvio/SDF_Demos/test-conn/connector-creator/create-connector/coin_test_connector.yaml
+[2m2024-08-19T22:00:20.264395Z[0m [34mDEBUG[0m [2mhttp_source[0m[2m:[0m input config [3mconfig_str[0m[2m=[0mapiVersion: 0.1.0
+meta:
+  version: 0.3.8
+  name: coin-test
+  type: http-source
+  topic: coin-test
+  
+http:
+  endpoint: "https://api.coincap.io/v2/assets"
+  interval: 10s
+  headers:
+    - "Cache-Control: no-cache"
+
+[2m2024-08-19T22:00:20.264906Z[0m [34mDEBUG[0m [2mfluvio_connector_package::config[0m[2m:[0m Using connector config V0_1_0(
+    ConnectorConfigV1 {
+        meta: MetaConfigV1 {
+            name: "coin-test",
+            type_: "http-source",
+            topic: "coin-test",
+            version: "0.3.8",
+            producer: None,
+            consumer: None,
+            secrets: None,
+        },
+        transforms: [],
+    },
+)
+[2m2024-08-19T22:00:20.264964Z[0m [32m INFO[0m [2mhttp_source[0m[2m:[0m Starting Processing [3mconn_type[0m[2m=[0m"http-source" [3mconn_name[0m[2m=[0m"coin-test" [3mconn_version[0m[2m=[0m"0.3.8"
+[2m2024-08-19T22:00:20.266574Z[0m [34mDEBUG[0m [2mfluvio_types::config_file[0m[2m:[0m loading from [3mpath_ref[0m[2m=[0m"/home/eve/.fluvio/config"
+[2m2024-08-19T22:00:20.266919Z[0m [32m INFO[0m [2mfluvio::fluvio[0m[2m:[0m Connecting to Fluvio cluster [3mfluvio_crate_version[0m[2m=[0m"0.23.1"
+[2m2024-08-19T22:00:20.266969Z[0m [34mDEBUG[0m [1mconnect[0m[2m:[0m [2mfluvio_socket::versioned[0m[2m:[0m try connection to [3madd[0m[2m=[0m127.0.0.1:9003
+[2m2024-08-19T22:00:20.266981Z[0m [34mDEBUG[0m [1mconnect[0m[2m:[0m[1mconnect_with_connector[0m[1m{[0m[3maddr[0m[2m=[0m"127.0.0.1:9003"[1m}[0m[2m:[0m [2mfluvio_socket::socket[0m[2m:[0m connecting to addr at: 127.0.0.1:9003
+[2m2024-08-19T22:00:20.266986Z[0m [34mDEBUG[0m [1mconnect[0m[2m:[0m[1mconnect_with_connector[0m[1m{[0m[3maddr[0m[2m=[0m"127.0.0.1:9003"[1m}[0m[2m:[0m [2mfluvio_future::net::unix_connector[0m[2m:[0m connect to tcp addr: 127.0.0.1:9003
+[2m2024-08-19T22:00:20.266991Z[0m [34mDEBUG[0m [1mconnect[0m[2m:[0m[1mconnect_with_connector[0m[1m{[0m[3maddr[0m[2m=[0m"127.0.0.1:9003"[1m}[0m[2m:[0m [2mfluvio_future::net::tcp_stream[0m[2m:[0m [3msocket_opts[0m[2m=[0mSome(SocketOpts { nodelay: None, keepalive: Some(KeepaliveOpts { time: Some(7200s), interval: Some(75s), retries: Some(9) }) })
+[2m2024-08-19T22:00:20.267499Z[0m [32m INFO[0m [1mconnect[0m[2m:[0m [2mfluvio_socket::versioned[0m[2m:[0m connect to socket [3madd[0m[2m=[0m127.0.0.1:9003
+[2m2024-08-19T22:00:20.267554Z[0m [34mDEBUG[0m [1mconnect[0m[2m:[0m[1mconnect[0m[2m:[0m [2mfluvio_socket::versioned[0m[2m:[0m querying versions [3mclient_version[0m[2m=[0m0.14.9
+[2m2024-08-19T22:00:20.267753Z[0m [34mDEBUG[0m [1mconnect[0m[2m:[0m[1mconnect[0m[2m:[0m [2mfluvio_socket::versioned[0m[2m:[0m versions: Versions {
+    api_versions: [
+        ApiVersionKey {
+            api_key: 1001,
+            min_version: 9,
+            max_version: 16,
+        },
+        ApiVersionKey {
+            api_key: 1002,
+            min_version: 1,
+            max_version: 16,
+        },
+        ApiVersionKey {
+            api_key: 1003,
+            min_version: 15,
+            max_version: 16,
+        },
+        ApiVersionKey {
+            api_key: 1004,
+            min_version: 15,
+            max_version: 16,
+        },
+        ApiVersionKey {
+            api_key: 1005,
+            min_version: 14,
+            max_version: 16,
+        },
+        ApiVersionKey {
+            api_key: 1006,
+            min_version: 1,
+            max_version: 16,
+        },
+    ],
+    platform_version: Version {
+        major: 0,
+        minor: 11,
+        patch: 11,
+    },
+}
+[2m2024-08-19T22:00:20.267955Z[0m [34mDEBUG[0m [2mfluvio::fluvio[0m[2m:[0m connected to cluster
+[2m2024-08-19T22:00:20.267970Z[0m [34mDEBUG[0m [2mfluvio::fluvio[0m[2m:[0m checking platform version [3mplatform[0m[2m=[0m0.11.11
+[2m2024-08-19T22:00:20.267981Z[0m [34mDEBUG[0m [2mfluvio_socket::multiplexing[0m[2m:[0m spawning dispatcher [3msocket[0m[2m=[0m9
+[2m2024-08-19T22:00:20.268005Z[0m [34mDEBUG[0m [1mstart[0m[1m{[0m[3mwatch_version[0m[2m=[0m16[1m}[0m[2m:[0m [2mfluvio::sync::store[0m[2m:[0m starting metadata store [3mwatch_version[0m[2m=[0m16
+[2m2024-08-19T22:00:20.268017Z[0m [34mDEBUG[0m [1mstart[0m[1m{[0m[3mwatch_version[0m[2m=[0m16[1m}[0m[2m:[0m[1mstart_watch_for_spu[0m[2m:[0m[1mstart_watch[0m[2m:[0m [2mfluvio::sync::store[0m[2m:[0m create metadata stream [3mwatch_version[0m[2m=[0m16 [3mobj[0m[2m=[0mSPU
+[2m2024-08-19T22:00:20.268039Z[0m [34mDEBUG[0m [1mstart[0m[1m{[0m[3mwatch_version[0m[2m=[0m16[1m}[0m[2m:[0m[1mstart_watch_for_spu[0m[2m:[0m[1mstart_watch[0m[2m:[0m[1mcreate_stream[0m[1m{[0m[3mqueue_len[0m[2m=[0m10 [3mapi[0m[2m=[0m1004[1m}[0m[2m:[0m [2mfluvio_sc_schema::objects::metadata[0m[2m:[0m encoding using new with [3mlen[0m[2m=[0m9
+[2m2024-08-19T22:00:20.268063Z[0m [34mDEBUG[0m [1mstart[0m[1m{[0m[3mwatch_version[0m[2m=[0m16[1m}[0m[2m:[0m[1mstart_watch_for_spu[0m[2m:[0m[1mstart_watch[0m[2m:[0m [2mfluvio::sync::controller[0m[2m:[0m spawning sync controller [3mspec[0m[2m=[0mSPU
+[2m2024-08-19T22:00:20.268088Z[0m [34mDEBUG[0m [1mstart[0m[1m{[0m[3mwatch_version[0m[2m=[0m16[1m}[0m[2m:[0m[1mstart_watch_for_partition[0m[2m:[0m[1mstart_watch[0m[2m:[0m [2mfluvio::sync::store[0m[2m:[0m create metadata stream [3mwatch_version[0m[2m=[0m16 [3mobj[0m[2m=[0mPartition
+[2m2024-08-19T22:00:20.268098Z[0m [34mDEBUG[0m [1mstart[0m[1m{[0m[3mwatch_version[0m[2m=[0m16[1m}[0m[2m:[0m[1mstart_watch_for_partition[0m[2m:[0m[1mstart_watch[0m[2m:[0m[1mcreate_stream[0m[1m{[0m[3mqueue_len[0m[2m=[0m10 [3mapi[0m[2m=[0m1004[1m}[0m[2m:[0m [2mfluvio_sc_schema::objects::metadata[0m[2m:[0m encoding using new with [3mlen[0m[2m=[0m9
+[2m2024-08-19T22:00:20.268107Z[0m [34mDEBUG[0m [1mstart[0m[1m{[0m[3mwatch_version[0m[2m=[0m16[1m}[0m[2m:[0m[1mstart_watch_for_partition[0m[2m:[0m[1mstart_watch[0m[2m:[0m [2mfluvio::sync::controller[0m[2m:[0m spawning sync controller [3mspec[0m[2m=[0mPartition
+[2m2024-08-19T22:00:20.268124Z[0m [34mDEBUG[0m [1mstart[0m[1m{[0m[3mwatch_version[0m[2m=[0m16[1m}[0m[2m:[0m[1mstart_watch_for_topic[0m[2m:[0m[1mstart_watch[0m[2m:[0m [2mfluvio::sync::store[0m[2m:[0m create metadata stream [3mwatch_version[0m[2m=[0m16 [3mobj[0m[2m=[0mTopic
+[2m2024-08-19T22:00:20.268134Z[0m [34mDEBUG[0m [1mstart[0m[1m{[0m[3mwatch_version[0m[2m=[0m16[1m}[0m[2m:[0m[1mstart_watch_for_topic[0m[2m:[0m[1mstart_watch[0m[2m:[0m[1mcreate_stream[0m[1m{[0m[3mqueue_len[0m[2m=[0m10 [3mapi[0m[2m=[0m1004[1m}[0m[2m:[0m [2mfluvio_sc_schema::objects::metadata[0m[2m:[0m encoding using new with [3mlen[0m[2m=[0m9
+[2m2024-08-19T22:00:20.268142Z[0m [34mDEBUG[0m [1mstart[0m[1m{[0m[3mwatch_version[0m[2m=[0m16[1m}[0m[2m:[0m[1mstart_watch_for_topic[0m[2m:[0m[1mstart_watch[0m[2m:[0m [2mfluvio::sync::controller[0m[2m:[0m spawning sync controller [3mspec[0m[2m=[0mTopic
+[2m2024-08-19T22:00:20.268155Z[0m [34mDEBUG[0m [1mconnect[0m[2m:[0m [2mfluvio_types::config_file[0m[2m:[0m loading from [3mpath_ref[0m[2m=[0m"/home/eve/.fluvio/config"
+[2m2024-08-19T22:00:20.268267Z[0m [34mDEBUG[0m [1mconnect[0m[2m:[0m[1mconnect_with_config[0m[2m:[0m[1mconnect[0m[2m:[0m [2mfluvio_socket::versioned[0m[2m:[0m try connection to [3madd[0m[2m=[0m127.0.0.1:9003
+[2m2024-08-19T22:00:20.268276Z[0m [34mDEBUG[0m [1mconnect[0m[2m:[0m[1mconnect_with_config[0m[2m:[0m[1mconnect[0m[2m:[0m[1mconnect_with_connector[0m[1m{[0m[3maddr[0m[2m=[0m"127.0.0.1:9003"[1m}[0m[2m:[0m [2mfluvio_socket::socket[0m[2m:[0m connecting to addr at: 127.0.0.1:9003
+[2m2024-08-19T22:00:20.268288Z[0m [34mDEBUG[0m [1mconnect[0m[2m:[0m[1mconnect_with_config[0m[2m:[0m[1mconnect[0m[2m:[0m[1mconnect_with_connector[0m[1m{[0m[3maddr[0m[2m=[0m"127.0.0.1:9003"[1m}[0m[2m:[0m [2mfluvio_future::net::unix_connector[0m[2m:[0m connect to tcp addr: 127.0.0.1:9003
+[2m2024-08-19T22:00:20.268292Z[0m [34mDEBUG[0m [1mconnect[0m[2m:[0m[1mconnect_with_config[0m[2m:[0m[1mconnect[0m[2m:[0m[1mconnect_with_connector[0m[1m{[0m[3maddr[0m[2m=[0m"127.0.0.1:9003"[1m}[0m[2m:[0m [2mfluvio_future::net::tcp_stream[0m[2m:[0m [3msocket_opts[0m[2m=[0mSome(SocketOpts { nodelay: None, keepalive: Some(KeepaliveOpts { time: Some(7200s), interval: Some(75s), retries: Some(9) }) })
+[2m2024-08-19T22:00:20.268361Z[0m [32m INFO[0m [1mconnect[0m[2m:[0m[1mconnect_with_config[0m[2m:[0m[1mconnect[0m[2m:[0m [2mfluvio_socket::versioned[0m[2m:[0m connect to socket [3madd[0m[2m=[0m127.0.0.1:9003
+[2m2024-08-19T22:00:20.268397Z[0m [34mDEBUG[0m [1mconnect[0m[2m:[0m[1mconnect_with_config[0m[2m:[0m[1mconnect[0m[2m:[0m[1mconnect[0m[2m:[0m [2mfluvio_socket::versioned[0m[2m:[0m querying versions [3mclient_version[0m[2m=[0m0.14.9
+[2m2024-08-19T22:00:20.268613Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"SPU"[1m}[0m[2m:[0m [2mfluvio::sync::controller[0m[2m:[0m SPU starting dispatch loop
+[2m2024-08-19T22:00:20.268682Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"Partition"[1m}[0m[2m:[0m [2mfluvio::sync::controller[0m[2m:[0m Partition starting dispatch loop
+[2m2024-08-19T22:00:20.268710Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"Topic"[1m}[0m[2m:[0m [2mfluvio::sync::controller[0m[2m:[0m Topic starting dispatch loop
+[2m2024-08-19T22:00:20.268856Z[0m [34mDEBUG[0m [1mdispatcher_loop[0m[1m{[0m[3mself[0m[2m=[0mMultiplexDisp(9)[1m}[0m[2m:[0m [2mfluvio_socket::multiplexing[0m[2m:[0m received frame [3mcorrelation_id[0m[2m=[0m1 [3mlen[0m[2m=[0m84 [3mremaining[0m[2m=[0m84
+[2m2024-08-19T22:00:20.268989Z[0m [34mDEBUG[0m [1mdispatcher_loop[0m[1m{[0m[3mself[0m[2m=[0mMultiplexDisp(9)[1m}[0m[2m:[0m [2mfluvio_socket::multiplexing[0m[2m:[0m received frame [3mcorrelation_id[0m[2m=[0m2 [3mlen[0m[2m=[0m357 [3mremaining[0m[2m=[0m357
+[2m2024-08-19T22:00:20.269014Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"SPU"[1m}[0m[2m:[0m[1mpoll_next[0m[1m{[0m[3mapi_key[0m[2m=[0m1004 [3mcorrelation_id[0m[2m=[0m1[1m}[0m[2m:[0m [2mfluvio_socket::multiplexing[0m[2m:[0m response len>>> [3mresponse_len[0m[2m=[0m84 [3mremaining[0m[2m=[0m84 [3mversion[0m[2m=[0m16
+[2m2024-08-19T22:00:20.269020Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"SPU"[1m}[0m[2m:[0m[1mpoll_next[0m[1m{[0m[3mapi_key[0m[2m=[0m1004 [3mcorrelation_id[0m[2m=[0m1[1m}[0m[2m:[0m [2mfluvio_sc_schema::objects::watch[0m[2m:[0m decoding new
+[2m2024-08-19T22:00:20.269025Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"SPU"[1m}[0m[2m:[0m[1mpoll_next[0m[1m{[0m[3mapi_key[0m[2m=[0m1004 [3mcorrelation_id[0m[2m=[0m1[1m}[0m[2m:[0m [2mfluvio_sc_schema::objects::metadata[0m[2m:[0m decoding tybuffer using new protocol
+[2m2024-08-19T22:00:20.269030Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"SPU"[1m}[0m[2m:[0m[1mpoll_next[0m[1m{[0m[3mapi_key[0m[2m=[0m1004 [3mcorrelation_id[0m[2m=[0m1[1m}[0m[2m:[0m [2mfluvio_sc_schema::objects::metadata[0m[2m:[0m decoded type [3mty[0m[2m=[0m"SPU"
+[2m2024-08-19T22:00:20.269035Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"SPU"[1m}[0m[2m:[0m[1mpoll_next[0m[1m{[0m[3mapi_key[0m[2m=[0m1004 [3mcorrelation_id[0m[2m=[0m1[1m}[0m[2m:[0m [2mfluvio_sc_schema::objects::metadata[0m[2m:[0m copy bytes [3mlen[0m[2m=[0m75
+[2m2024-08-19T22:00:20.269059Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"SPU"[1m}[0m[2m:[0m [2mfluvio::sync::controller[0m[2m:[0m received request [3mspec[0m[2m=[0mSPU
+[2m2024-08-19T22:00:20.269063Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"SPU"[1m}[0m[2m:[0m [2mfluvio_sc_schema::objects::metadata[0m[2m:[0m downcasting [3mty[0m[2m=[0m"SPU"
+[2m2024-08-19T22:00:20.269080Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"SPU"[1m}[0m[2m:[0m[1msync_metadata[0m[1m{[0m[3mepoch[0m[2m=[0m6 [3mspec[0m[2m=[0mSPU[1m}[0m[2m:[0m [2mfluvio::sync::controller[0m[2m:[0m Received full sync, setting store objects: [3mcount[0m[2m=[0m1
+[2m2024-08-19T22:00:20.269087Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"SPU"[1m}[0m[2m:[0m[1msync_metadata[0m[1m{[0m[3mepoch[0m[2m=[0m6 [3mspec[0m[2m=[0mSPU[1m}[0m[2m:[0m [2mfluvio_stream_model::store::dual_store[0m[2m:[0m SyncAll: <SPU> epoch: 0 incoming 1
+[2m2024-08-19T22:00:20.269097Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"SPU"[1m}[0m[2m:[0m[1msync_metadata[0m[1m{[0m[3mepoch[0m[2m=[0m6 [3mspec[0m[2m=[0mSPU[1m}[0m[2m:[0m [2mfluvio_stream_model::store::dual_store[0m[2m:[0m Sync all: <SPU:1> [add:1, mod_spec:0, mod_status: 0, mod_meta: 0, del:0], 
+[2m2024-08-19T22:00:20.269113Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"Partition"[1m}[0m[2m:[0m[1mpoll_next[0m[1m{[0m[3mapi_key[0m[2m=[0m1004 [3mcorrelation_id[0m[2m=[0m2[1m}[0m[2m:[0m [2mfluvio_socket::multiplexing[0m[2m:[0m response len>>> [3mresponse_len[0m[2m=[0m357 [3mremaining[0m[2m=[0m357 [3mversion[0m[2m=[0m16
+[2m2024-08-19T22:00:20.269118Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"Partition"[1m}[0m[2m:[0m[1mpoll_next[0m[1m{[0m[3mapi_key[0m[2m=[0m1004 [3mcorrelation_id[0m[2m=[0m2[1m}[0m[2m:[0m [2mfluvio_sc_schema::objects::watch[0m[2m:[0m decoding new
+[2m2024-08-19T22:00:20.269122Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"Partition"[1m}[0m[2m:[0m[1mpoll_next[0m[1m{[0m[3mapi_key[0m[2m=[0m1004 [3mcorrelation_id[0m[2m=[0m2[1m}[0m[2m:[0m [2mfluvio_sc_schema::objects::metadata[0m[2m:[0m decoding tybuffer using new protocol
+[2m2024-08-19T22:00:20.269127Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"Partition"[1m}[0m[2m:[0m[1mpoll_next[0m[1m{[0m[3mapi_key[0m[2m=[0m1004 [3mcorrelation_id[0m[2m=[0m2[1m}[0m[2m:[0m [2mfluvio_sc_schema::objects::metadata[0m[2m:[0m decoded type [3mty[0m[2m=[0m"Partition"
+[2m2024-08-19T22:00:20.269131Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"Partition"[1m}[0m[2m:[0m[1mpoll_next[0m[1m{[0m[3mapi_key[0m[2m=[0m1004 [3mcorrelation_id[0m[2m=[0m2[1m}[0m[2m:[0m [2mfluvio_sc_schema::objects::metadata[0m[2m:[0m copy bytes [3mlen[0m[2m=[0m342
+[2m2024-08-19T22:00:20.269137Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"Partition"[1m}[0m[2m:[0m [2mfluvio::sync::controller[0m[2m:[0m received request [3mspec[0m[2m=[0mPartition
+[2m2024-08-19T22:00:20.269141Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"Partition"[1m}[0m[2m:[0m [2mfluvio_sc_schema::objects::metadata[0m[2m:[0m downcasting [3mty[0m[2m=[0m"Partition"
+[2m2024-08-19T22:00:20.269157Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"Partition"[1m}[0m[2m:[0m[1msync_metadata[0m[1m{[0m[3mepoch[0m[2m=[0m63 [3mspec[0m[2m=[0mPartition[1m}[0m[2m:[0m [2mfluvio::sync::controller[0m[2m:[0m Received full sync, setting store objects: [3mcount[0m[2m=[0m4
+[2m2024-08-19T22:00:20.269165Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"Partition"[1m}[0m[2m:[0m[1msync_metadata[0m[1m{[0m[3mepoch[0m[2m=[0m63 [3mspec[0m[2m=[0mPartition[1m}[0m[2m:[0m [2mfluvio_stream_model::store::dual_store[0m[2m:[0m SyncAll: <Partition> epoch: 0 incoming 4
+[2m2024-08-19T22:00:20.269191Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"Partition"[1m}[0m[2m:[0m[1msync_metadata[0m[1m{[0m[3mepoch[0m[2m=[0m63 [3mspec[0m[2m=[0mPartition[1m}[0m[2m:[0m [2mfluvio_stream_model::store::dual_store[0m[2m:[0m Sync all: <Partition:1> [add:4, mod_spec:0, mod_status: 0, mod_meta: 0, del:0], 
+[2m2024-08-19T22:00:20.269263Z[0m [34mDEBUG[0m [1mconnect[0m[2m:[0m[1mconnect_with_config[0m[2m:[0m[1mconnect[0m[2m:[0m[1mconnect[0m[2m:[0m [2mfluvio_socket::versioned[0m[2m:[0m versions: Versions {
+    api_versions: [
+        ApiVersionKey {
+            api_key: 1001,
+            min_version: 9,
+            max_version: 16,
+        },
+        ApiVersionKey {
+            api_key: 1002,
+            min_version: 1,
+            max_version: 16,
+        },
+        ApiVersionKey {
+            api_key: 1003,
+            min_version: 15,
+            max_version: 16,
+        },
+        ApiVersionKey {
+            api_key: 1004,
+            min_version: 15,
+            max_version: 16,
+        },
+        ApiVersionKey {
+            api_key: 1005,
+            min_version: 14,
+            max_version: 16,
+        },
+        ApiVersionKey {
+            api_key: 1006,
+            min_version: 1,
+            max_version: 16,
+        },
+    ],
+    platform_version: Version {
+        major: 0,
+        minor: 11,
+        patch: 11,
+    },
+}
+[2m2024-08-19T22:00:20.269329Z[0m [34mDEBUG[0m [1mconnect[0m[2m:[0m[1mconnect_with_config[0m[2m:[0m [2mfluvio::admin[0m[2m:[0m connected to cluster [3maddr[0m[2m=[0m127.0.0.1:9003
+[2m2024-08-19T22:00:20.269365Z[0m [34mDEBUG[0m [1mconnect[0m[2m:[0m[1mconnect_with_config[0m[2m:[0m [2mfluvio_socket::multiplexing[0m[2m:[0m spawning dispatcher [3msocket[0m[2m=[0m10
+[2m2024-08-19T22:00:20.269482Z[0m [34mDEBUG[0m [1mconnect[0m[2m:[0m[1mconnect_with_config[0m[2m:[0m[1mstart[0m[1m{[0m[3mwatch_version[0m[2m=[0m16[1m}[0m[2m:[0m [2mfluvio::sync::store[0m[2m:[0m starting metadata store [3mwatch_version[0m[2m=[0m16
+[2m2024-08-19T22:00:20.269499Z[0m [34mDEBUG[0m [1mconnect[0m[2m:[0m[1mconnect_with_config[0m[2m:[0m[1mstart[0m[1m{[0m[3mwatch_version[0m[2m=[0m16[1m}[0m[2m:[0m[1mstart_watch_for_spu[0m[2m:[0m[1mstart_watch[0m[2m:[0m [2mfluvio::sync::store[0m[2m:[0m create metadata stream [3mwatch_version[0m[2m=[0m16 [3mobj[0m[2m=[0mSPU
+[2m2024-08-19T22:00:20.269535Z[0m [34mDEBUG[0m [1mconnect[0m[2m:[0m[1mconnect_with_config[0m[2m:[0m[1mstart[0m[1m{[0m[3mwatch_version[0m[2m=[0m16[1m}[0m[2m:[0m[1mstart_watch_for_spu[0m[2m:[0m[1mstart_watch[0m[2m:[0m[1mcreate_stream[0m[1m{[0m[3mqueue_len[0m[2m=[0m10 [3mapi[0m[2m=[0m1004[1m}[0m[2m:[0m [2mfluvio_sc_schema::objects::metadata[0m[2m:[0m encoding using new with [3mlen[0m[2m=[0m9
+[2m2024-08-19T22:00:20.269711Z[0m [34mDEBUG[0m [1mconnect[0m[2m:[0m[1mconnect_with_config[0m[2m:[0m[1mstart[0m[1m{[0m[3mwatch_version[0m[2m=[0m16[1m}[0m[2m:[0m[1mstart_watch_for_spu[0m[2m:[0m[1mstart_watch[0m[2m:[0m [2mfluvio::sync::controller[0m[2m:[0m spawning sync controller [3mspec[0m[2m=[0mSPU
+[2m2024-08-19T22:00:20.269741Z[0m [34mDEBUG[0m [1mconnect[0m[2m:[0m[1mconnect_with_config[0m[2m:[0m[1mstart[0m[1m{[0m[3mwatch_version[0m[2m=[0m16[1m}[0m[2m:[0m[1mstart_watch_for_partition[0m[2m:[0m[1mstart_watch[0m[2m:[0m [2mfluvio::sync::store[0m[2m:[0m create metadata stream [3mwatch_version[0m[2m=[0m16 [3mobj[0m[2m=[0mPartition
+[2m2024-08-19T22:00:20.269751Z[0m [34mDEBUG[0m [1mconnect[0m[2m:[0m[1mconnect_with_config[0m[2m:[0m[1mstart[0m[1m{[0m[3mwatch_version[0m[2m=[0m16[1m}[0m[2m:[0m[1mstart_watch_for_partition[0m[2m:[0m[1mstart_watch[0m[2m:[0m[1mcreate_stream[0m[1m{[0m[3mqueue_len[0m[2m=[0m10 [3mapi[0m[2m=[0m1004[1m}[0m[2m:[0m [2mfluvio_sc_schema::objects::metadata[0m[2m:[0m encoding using new with [3mlen[0m[2m=[0m9
+[2m2024-08-19T22:00:20.269780Z[0m [34mDEBUG[0m [1mconnect[0m[2m:[0m[1mconnect_with_config[0m[2m:[0m[1mstart[0m[1m{[0m[3mwatch_version[0m[2m=[0m16[1m}[0m[2m:[0m[1mstart_watch_for_partition[0m[2m:[0m[1mstart_watch[0m[2m:[0m [2mfluvio::sync::controller[0m[2m:[0m spawning sync controller [3mspec[0m[2m=[0mPartition
+[2m2024-08-19T22:00:20.269791Z[0m [34mDEBUG[0m [1mconnect[0m[2m:[0m[1mconnect_with_config[0m[2m:[0m[1mstart[0m[1m{[0m[3mwatch_version[0m[2m=[0m16[1m}[0m[2m:[0m[1mstart_watch_for_topic[0m[2m:[0m[1mstart_watch[0m[2m:[0m [2mfluvio::sync::store[0m[2m:[0m create metadata stream [3mwatch_version[0m[2m=[0m16 [3mobj[0m[2m=[0mTopic
+[2m2024-08-19T22:00:20.269789Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"SPU"[1m}[0m[2m:[0m [2mfluvio::sync::controller[0m[2m:[0m SPU starting dispatch loop
+[2m2024-08-19T22:00:20.269800Z[0m [34mDEBUG[0m [1mconnect[0m[2m:[0m[1mconnect_with_config[0m[2m:[0m[1mstart[0m[1m{[0m[3mwatch_version[0m[2m=[0m16[1m}[0m[2m:[0m[1mstart_watch_for_topic[0m[2m:[0m[1mstart_watch[0m[2m:[0m[1mcreate_stream[0m[1m{[0m[3mqueue_len[0m[2m=[0m10 [3mapi[0m[2m=[0m1004[1m}[0m[2m:[0m [2mfluvio_sc_schema::objects::metadata[0m[2m:[0m encoding using new with [3mlen[0m[2m=[0m9
+[2m2024-08-19T22:00:20.269879Z[0m [34mDEBUG[0m [1mconnect[0m[2m:[0m[1mconnect_with_config[0m[2m:[0m[1mstart[0m[1m{[0m[3mwatch_version[0m[2m=[0m16[1m}[0m[2m:[0m[1mstart_watch_for_topic[0m[2m:[0m[1mstart_watch[0m[2m:[0m [2mfluvio::sync::controller[0m[2m:[0m spawning sync controller [3mspec[0m[2m=[0mTopic
+[2m2024-08-19T22:00:20.270161Z[0m [34mDEBUG[0m [1mlist[0m[2m:[0m[1mlist_with_params[0m[1m{[0m[3msummary[0m[2m=[0mfalse[1m}[0m[2m:[0m[1mlist_with_config[0m[2m:[0m[1msend_receive_admin[0m[2m:[0m[1msend_and_receive[0m[1m{[0m[3mself[0m[2m=[0mMultiplexerSocket 10[1m}[0m[2m:[0m [2mfluvio_socket::multiplexing[0m[2m:[0m sending request [3mapi[0m[2m=[0m1003 [3mcorrelation_id[0m[2m=[0m4
+[2m2024-08-19T22:00:20.270228Z[0m [34mDEBUG[0m [1mdispatcher_loop[0m[1m{[0m[3mself[0m[2m=[0mMultiplexDisp(10)[1m}[0m[2m:[0m [2mfluvio_socket::multiplexing[0m[2m:[0m received frame [3mcorrelation_id[0m[2m=[0m1 [3mlen[0m[2m=[0m84 [3mremaining[0m[2m=[0m84
+[2m2024-08-19T22:00:20.270425Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"Partition"[1m}[0m[2m:[0m [2mfluvio::sync::controller[0m[2m:[0m Partition starting dispatch loop
+[2m2024-08-19T22:00:20.270444Z[0m [34mDEBUG[0m [1mdispatcher_loop[0m[1m{[0m[3mself[0m[2m=[0mMultiplexDisp(10)[1m}[0m[2m:[0m [2mfluvio_socket::multiplexing[0m[2m:[0m received frame [3mcorrelation_id[0m[2m=[0m2 [3mlen[0m[2m=[0m357 [3mremaining[0m[2m=[0m357
+[2m2024-08-19T22:00:20.270431Z[0m [34mDEBUG[0m [1mlist[0m[2m:[0m[1mlist_with_params[0m[1m{[0m[3msummary[0m[2m=[0mfalse[1m}[0m[2m:[0m[1mlist_with_config[0m[2m:[0m[1msend_receive_admin[0m[2m:[0m[1msend_and_receive[0m[1m{[0m[3mself[0m[2m=[0mMultiplexerSocket 10[1m}[0m[2m:[0m [2mfluvio_sc_schema::objects::metadata[0m[2m:[0m encoding using new with [3mlen[0m[2m=[0m17
+[2m2024-08-19T22:00:20.270479Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"Topic"[1m}[0m[2m:[0m [2mfluvio::sync::controller[0m[2m:[0m Topic starting dispatch loop
+[2m2024-08-19T22:00:20.270492Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"SPU"[1m}[0m[2m:[0m[1mpoll_next[0m[1m{[0m[3mapi_key[0m[2m=[0m1004 [3mcorrelation_id[0m[2m=[0m1[1m}[0m[2m:[0m [2mfluvio_socket::multiplexing[0m[2m:[0m response len>>> [3mresponse_len[0m[2m=[0m84 [3mremaining[0m[2m=[0m84 [3mversion[0m[2m=[0m16
+[2m2024-08-19T22:00:20.270509Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"SPU"[1m}[0m[2m:[0m[1mpoll_next[0m[1m{[0m[3mapi_key[0m[2m=[0m1004 [3mcorrelation_id[0m[2m=[0m1[1m}[0m[2m:[0m [2mfluvio_sc_schema::objects::watch[0m[2m:[0m decoding new
+[2m2024-08-19T22:00:20.270539Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"SPU"[1m}[0m[2m:[0m[1mpoll_next[0m[1m{[0m[3mapi_key[0m[2m=[0m1004 [3mcorrelation_id[0m[2m=[0m1[1m}[0m[2m:[0m [2mfluvio_sc_schema::objects::metadata[0m[2m:[0m decoding tybuffer using new protocol
+[2m2024-08-19T22:00:20.270462Z[0m [34mDEBUG[0m [1mdispatcher_loop[0m[1m{[0m[3mself[0m[2m=[0mMultiplexDisp(10)[1m}[0m[2m:[0m [2mfluvio_socket::multiplexing[0m[2m:[0m received frame [3mcorrelation_id[0m[2m=[0m3 [3mlen[0m[2m=[0m225 [3mremaining[0m[2m=[0m225
+[2m2024-08-19T22:00:20.270547Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"SPU"[1m}[0m[2m:[0m[1mpoll_next[0m[1m{[0m[3mapi_key[0m[2m=[0m1004 [3mcorrelation_id[0m[2m=[0m1[1m}[0m[2m:[0m [2mfluvio_sc_schema::objects::metadata[0m[2m:[0m decoded type [3mty[0m[2m=[0m"SPU"
+[2m2024-08-19T22:00:20.270553Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"SPU"[1m}[0m[2m:[0m[1mpoll_next[0m[1m{[0m[3mapi_key[0m[2m=[0m1004 [3mcorrelation_id[0m[2m=[0m1[1m}[0m[2m:[0m [2mfluvio_sc_schema::objects::metadata[0m[2m:[0m copy bytes [3mlen[0m[2m=[0m75
+[2m2024-08-19T22:00:20.270560Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"SPU"[1m}[0m[2m:[0m [2mfluvio::sync::controller[0m[2m:[0m received request [3mspec[0m[2m=[0mSPU
+[2m2024-08-19T22:00:20.270564Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"SPU"[1m}[0m[2m:[0m [2mfluvio_sc_schema::objects::metadata[0m[2m:[0m downcasting [3mty[0m[2m=[0m"SPU"
+[2m2024-08-19T22:00:20.270575Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"SPU"[1m}[0m[2m:[0m[1msync_metadata[0m[1m{[0m[3mepoch[0m[2m=[0m6 [3mspec[0m[2m=[0mSPU[1m}[0m[2m:[0m [2mfluvio::sync::controller[0m[2m:[0m Received full sync, setting store objects: [3mcount[0m[2m=[0m1
+[2m2024-08-19T22:00:20.270581Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"SPU"[1m}[0m[2m:[0m[1msync_metadata[0m[1m{[0m[3mepoch[0m[2m=[0m6 [3mspec[0m[2m=[0mSPU[1m}[0m[2m:[0m [2mfluvio_stream_model::store::dual_store[0m[2m:[0m SyncAll: <SPU> epoch: 0 incoming 1
+[2m2024-08-19T22:00:20.270588Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"SPU"[1m}[0m[2m:[0m[1msync_metadata[0m[1m{[0m[3mepoch[0m[2m=[0m6 [3mspec[0m[2m=[0mSPU[1m}[0m[2m:[0m [2mfluvio_stream_model::store::dual_store[0m[2m:[0m Sync all: <SPU:1> [add:1, mod_spec:0, mod_status: 0, mod_meta: 0, del:0], 
+[2m2024-08-19T22:00:20.270459Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"Partition"[1m}[0m[2m:[0m[1mpoll_next[0m[1m{[0m[3mapi_key[0m[2m=[0m1004 [3mcorrelation_id[0m[2m=[0m2[1m}[0m[2m:[0m [2mfluvio_socket::multiplexing[0m[2m:[0m response len>>> [3mresponse_len[0m[2m=[0m357 [3mremaining[0m[2m=[0m357 [3mversion[0m[2m=[0m16
+[2m2024-08-19T22:00:20.270624Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"Partition"[1m}[0m[2m:[0m[1mpoll_next[0m[1m{[0m[3mapi_key[0m[2m=[0m1004 [3mcorrelation_id[0m[2m=[0m2[1m}[0m[2m:[0m [2mfluvio_sc_schema::objects::watch[0m[2m:[0m decoding new
+[2m2024-08-19T22:00:20.270628Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"Topic"[1m}[0m[2m:[0m[1mpoll_next[0m[1m{[0m[3mapi_key[0m[2m=[0m1004 [3mcorrelation_id[0m[2m=[0m3[1m}[0m[2m:[0m [2mfluvio_socket::multiplexing[0m[2m:[0m response len>>> [3mresponse_len[0m[2m=[0m225 [3mremaining[0m[2m=[0m225 [3mversion[0m[2m=[0m16
+[2m2024-08-19T22:00:20.270632Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"Partition"[1m}[0m[2m:[0m[1mpoll_next[0m[1m{[0m[3mapi_key[0m[2m=[0m1004 [3mcorrelation_id[0m[2m=[0m2[1m}[0m[2m:[0m [2mfluvio_sc_schema::objects::metadata[0m[2m:[0m decoding tybuffer using new protocol
+[2m2024-08-19T22:00:20.270660Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"Partition"[1m}[0m[2m:[0m[1mpoll_next[0m[1m{[0m[3mapi_key[0m[2m=[0m1004 [3mcorrelation_id[0m[2m=[0m2[1m}[0m[2m:[0m [2mfluvio_sc_schema::objects::metadata[0m[2m:[0m decoded type [3mty[0m[2m=[0m"Partition"
+[2m2024-08-19T22:00:20.270666Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"Partition"[1m}[0m[2m:[0m[1mpoll_next[0m[1m{[0m[3mapi_key[0m[2m=[0m1004 [3mcorrelation_id[0m[2m=[0m2[1m}[0m[2m:[0m [2mfluvio_sc_schema::objects::metadata[0m[2m:[0m copy bytes [3mlen[0m[2m=[0m342
+[2m2024-08-19T22:00:20.270636Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"Topic"[1m}[0m[2m:[0m[1mpoll_next[0m[1m{[0m[3mapi_key[0m[2m=[0m1004 [3mcorrelation_id[0m[2m=[0m3[1m}[0m[2m:[0m [2mfluvio_sc_schema::objects::watch[0m[2m:[0m decoding new
+[2m2024-08-19T22:00:20.270676Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"Partition"[1m}[0m[2m:[0m [2mfluvio::sync::controller[0m[2m:[0m received request [3mspec[0m[2m=[0mPartition
+[2m2024-08-19T22:00:20.270690Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"Partition"[1m}[0m[2m:[0m [2mfluvio_sc_schema::objects::metadata[0m[2m:[0m downcasting [3mty[0m[2m=[0m"Partition"
+[2m2024-08-19T22:00:20.270676Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"Topic"[1m}[0m[2m:[0m[1mpoll_next[0m[1m{[0m[3mapi_key[0m[2m=[0m1004 [3mcorrelation_id[0m[2m=[0m3[1m}[0m[2m:[0m [2mfluvio_sc_schema::objects::metadata[0m[2m:[0m decoding tybuffer using new protocol
+[2m2024-08-19T22:00:20.270726Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"Partition"[1m}[0m[2m:[0m[1msync_metadata[0m[1m{[0m[3mepoch[0m[2m=[0m63 [3mspec[0m[2m=[0mPartition[1m}[0m[2m:[0m [2mfluvio::sync::controller[0m[2m:[0m Received full sync, setting store objects: [3mcount[0m[2m=[0m4
+[2m2024-08-19T22:00:20.270727Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"Topic"[1m}[0m[2m:[0m[1mpoll_next[0m[1m{[0m[3mapi_key[0m[2m=[0m1004 [3mcorrelation_id[0m[2m=[0m3[1m}[0m[2m:[0m [2mfluvio_sc_schema::objects::metadata[0m[2m:[0m decoded type [3mty[0m[2m=[0m"Topic"
+[2m2024-08-19T22:00:20.270753Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"Topic"[1m}[0m[2m:[0m[1mpoll_next[0m[1m{[0m[3mapi_key[0m[2m=[0m1004 [3mcorrelation_id[0m[2m=[0m3[1m}[0m[2m:[0m [2mfluvio_sc_schema::objects::metadata[0m[2m:[0m copy bytes [3mlen[0m[2m=[0m214
+[2m2024-08-19T22:00:20.270761Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"Topic"[1m}[0m[2m:[0m [2mfluvio::sync::controller[0m[2m:[0m received request [3mspec[0m[2m=[0mTopic
+[2m2024-08-19T22:00:20.270765Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"Topic"[1m}[0m[2m:[0m [2mfluvio_sc_schema::objects::metadata[0m[2m:[0m downcasting [3mty[0m[2m=[0m"Topic"
+[2m2024-08-19T22:00:20.270791Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"Partition"[1m}[0m[2m:[0m[1msync_metadata[0m[1m{[0m[3mepoch[0m[2m=[0m63 [3mspec[0m[2m=[0mPartition[1m}[0m[2m:[0m [2mfluvio_stream_model::store::dual_store[0m[2m:[0m SyncAll: <Partition> epoch: 0 incoming 4
+[2m2024-08-19T22:00:20.270793Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"Topic"[1m}[0m[2m:[0m[1msync_metadata[0m[1m{[0m[3mepoch[0m[2m=[0m16 [3mspec[0m[2m=[0mTopic[1m}[0m[2m:[0m [2mfluvio::sync::controller[0m[2m:[0m Received full sync, setting store objects: [3mcount[0m[2m=[0m4
+[2m2024-08-19T22:00:20.270877Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"Partition"[1m}[0m[2m:[0m[1msync_metadata[0m[1m{[0m[3mepoch[0m[2m=[0m63 [3mspec[0m[2m=[0mPartition[1m}[0m[2m:[0m [2mfluvio_stream_model::store::dual_store[0m[2m:[0m Sync all: <Partition:1> [add:4, mod_spec:0, mod_status: 0, mod_meta: 0, del:0], 
+[2m2024-08-19T22:00:20.270920Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"Topic"[1m}[0m[2m:[0m[1msync_metadata[0m[1m{[0m[3mepoch[0m[2m=[0m16 [3mspec[0m[2m=[0mTopic[1m}[0m[2m:[0m [2mfluvio_stream_model::store::dual_store[0m[2m:[0m SyncAll: <Topic> epoch: 0 incoming 4
+[2m2024-08-19T22:00:20.270882Z[0m [34mDEBUG[0m [1mdispatcher_loop[0m[1m{[0m[3mself[0m[2m=[0mMultiplexDisp(10)[1m}[0m[2m:[0m [2mfluvio_socket::multiplexing[0m[2m:[0m received frame [3mcorrelation_id[0m[2m=[0m4 [3mlen[0m[2m=[0m60 [3mremaining[0m[2m=[0m60
+[2m2024-08-19T22:00:20.271119Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"Topic"[1m}[0m[2m:[0m[1msync_metadata[0m[1m{[0m[3mepoch[0m[2m=[0m16 [3mspec[0m[2m=[0mTopic[1m}[0m[2m:[0m [2mfluvio_stream_model::store::dual_store[0m[2m:[0m Sync all: <Topic:1> [add:4, mod_spec:0, mod_status: 0, mod_meta: 0, del:0], 
+[2m2024-08-19T22:00:20.271123Z[0m [34mDEBUG[0m [1mlist[0m[2m:[0m[1mlist_with_params[0m[1m{[0m[3msummary[0m[2m=[0mfalse[1m}[0m[2m:[0m[1mlist_with_config[0m[2m:[0m[1msend_receive_admin[0m[2m:[0m[1msend_and_receive[0m[1m{[0m[3mself[0m[2m=[0mMultiplexerSocket 10[1m}[0m[2m:[0m [2mfluvio_socket::multiplexing[0m[2m:[0m receive serial message [3mcorrelation_id[0m[2m=[0m4 [3mlen[0m[2m=[0m60
+[2m2024-08-19T22:00:20.271162Z[0m [34mDEBUG[0m [1mlist[0m[2m:[0m[1mlist_with_params[0m[1m{[0m[3msummary[0m[2m=[0mfalse[1m}[0m[2m:[0m[1mlist_with_config[0m[2m:[0m[1msend_receive_admin[0m[2m:[0m[1msend_and_receive[0m[1m{[0m[3mself[0m[2m=[0mMultiplexerSocket 10[1m}[0m[2m:[0m [2mfluvio_sc_schema::objects::list[0m[2m:[0m decoding new
+[2m2024-08-19T22:00:20.271168Z[0m [34mDEBUG[0m [1mlist[0m[2m:[0m[1mlist_with_params[0m[1m{[0m[3msummary[0m[2m=[0mfalse[1m}[0m[2m:[0m[1mlist_with_config[0m[2m:[0m[1msend_receive_admin[0m[2m:[0m[1msend_and_receive[0m[1m{[0m[3mself[0m[2m=[0mMultiplexerSocket 10[1m}[0m[2m:[0m [2mfluvio_sc_schema::objects::metadata[0m[2m:[0m decoding tybuffer using new protocol
+[2m2024-08-19T22:00:20.271176Z[0m [34mDEBUG[0m [1mlist[0m[2m:[0m[1mlist_with_params[0m[1m{[0m[3msummary[0m[2m=[0mfalse[1m}[0m[2m:[0m[1mlist_with_config[0m[2m:[0m[1msend_receive_admin[0m[2m:[0m[1msend_and_receive[0m[1m{[0m[3mself[0m[2m=[0mMultiplexerSocket 10[1m}[0m[2m:[0m [2mfluvio_sc_schema::objects::metadata[0m[2m:[0m decoded type [3mty[0m[2m=[0m"Topic"
+[2m2024-08-19T22:00:20.271182Z[0m [34mDEBUG[0m [1mlist[0m[2m:[0m[1mlist_with_params[0m[1m{[0m[3msummary[0m[2m=[0mfalse[1m}[0m[2m:[0m[1mlist_with_config[0m[2m:[0m[1msend_receive_admin[0m[2m:[0m[1msend_and_receive[0m[1m{[0m[3mself[0m[2m=[0mMultiplexerSocket 10[1m}[0m[2m:[0m [2mfluvio_sc_schema::objects::metadata[0m[2m:[0m copy bytes [3mlen[0m[2m=[0m49
+[2m2024-08-19T22:00:20.271193Z[0m [34mDEBUG[0m [1mlist[0m[2m:[0m[1mlist_with_params[0m[1m{[0m[3msummary[0m[2m=[0mfalse[1m}[0m[2m:[0m[1mlist_with_config[0m[2m:[0m [2mfluvio_sc_schema::objects::metadata[0m[2m:[0m downcasting [3mty[0m[2m=[0m"Topic"
+[2m2024-08-19T22:00:20.271229Z[0m [34mDEBUG[0m [2mfluvio::fluvio[0m[2m:[0m Creating producer [3mtopic[0m[2m=[0m"coin-test"
+[2m2024-08-19T22:00:20.271237Z[0m [34mDEBUG[0m [1mstart[0m[1m{[0m[3mwatch_version[0m[2m=[0m16[1m}[0m[2m:[0m [2mfluvio::sync::store[0m[2m:[0m starting metadata store [3mwatch_version[0m[2m=[0m16
+[2m2024-08-19T22:00:20.271247Z[0m [34mDEBUG[0m [1mstart[0m[1m{[0m[3mwatch_version[0m[2m=[0m16[1m}[0m[2m:[0m[1mstart_watch_for_spu[0m[2m:[0m[1mstart_watch[0m[2m:[0m [2mfluvio::sync::store[0m[2m:[0m create metadata stream [3mwatch_version[0m[2m=[0m16 [3mobj[0m[2m=[0mSPU
+[2m2024-08-19T22:00:20.271321Z[0m [34mDEBUG[0m [1mstart[0m[1m{[0m[3mwatch_version[0m[2m=[0m16[1m}[0m[2m:[0m[1mstart_watch_for_spu[0m[2m:[0m[1mstart_watch[0m[2m:[0m[1mcreate_stream[0m[1m{[0m[3mqueue_len[0m[2m=[0m10 [3mapi[0m[2m=[0m1004[1m}[0m[2m:[0m [2mfluvio_sc_schema::objects::metadata[0m[2m:[0m encoding using new with [3mlen[0m[2m=[0m9
+[2m2024-08-19T22:00:20.271378Z[0m [34mDEBUG[0m [1mstart[0m[1m{[0m[3mwatch_version[0m[2m=[0m16[1m}[0m[2m:[0m[1mstart_watch_for_spu[0m[2m:[0m[1mstart_watch[0m[2m:[0m [2mfluvio::sync::controller[0m[2m:[0m spawning sync controller [3mspec[0m[2m=[0mSPU
+[2m2024-08-19T22:00:20.271393Z[0m [34mDEBUG[0m [1mstart[0m[1m{[0m[3mwatch_version[0m[2m=[0m16[1m}[0m[2m:[0m[1mstart_watch_for_partition[0m[2m:[0m[1mstart_watch[0m[2m:[0m [2mfluvio::sync::store[0m[2m:[0m create metadata stream [3mwatch_version[0m[2m=[0m16 [3mobj[0m[2m=[0mPartition
+[2m2024-08-19T22:00:20.271402Z[0m [34mDEBUG[0m [1mstart[0m[1m{[0m[3mwatch_version[0m[2m=[0m16[1m}[0m[2m:[0m[1mstart_watch_for_partition[0m[2m:[0m[1mstart_watch[0m[2m:[0m[1mcreate_stream[0m[1m{[0m[3mqueue_len[0m[2m=[0m10 [3mapi[0m[2m=[0m1004[1m}[0m[2m:[0m [2mfluvio_sc_schema::objects::metadata[0m[2m:[0m encoding using new with [3mlen[0m[2m=[0m9
+[2m2024-08-19T22:00:20.271419Z[0m [34mDEBUG[0m [1mstart[0m[1m{[0m[3mwatch_version[0m[2m=[0m16[1m}[0m[2m:[0m[1mstart_watch_for_partition[0m[2m:[0m[1mstart_watch[0m[2m:[0m [2mfluvio::sync::controller[0m[2m:[0m spawning sync controller [3mspec[0m[2m=[0mPartition
+[2m2024-08-19T22:00:20.271442Z[0m [34mDEBUG[0m [1mstart[0m[1m{[0m[3mwatch_version[0m[2m=[0m16[1m}[0m[2m:[0m[1mstart_watch_for_topic[0m[2m:[0m[1mstart_watch[0m[2m:[0m [2mfluvio::sync::store[0m[2m:[0m create metadata stream [3mwatch_version[0m[2m=[0m16 [3mobj[0m[2m=[0mTopic
+[2m2024-08-19T22:00:20.271451Z[0m [34mDEBUG[0m [1mstart[0m[1m{[0m[3mwatch_version[0m[2m=[0m16[1m}[0m[2m:[0m[1mstart_watch_for_topic[0m[2m:[0m[1mstart_watch[0m[2m:[0m[1mcreate_stream[0m[1m{[0m[3mqueue_len[0m[2m=[0m10 [3mapi[0m[2m=[0m1004[1m}[0m[2m:[0m [2mfluvio_sc_schema::objects::metadata[0m[2m:[0m encoding using new with [3mlen[0m[2m=[0m9
+[2m2024-08-19T22:00:20.271460Z[0m [34mDEBUG[0m [1mstart[0m[1m{[0m[3mwatch_version[0m[2m=[0m16[1m}[0m[2m:[0m[1mstart_watch_for_topic[0m[2m:[0m[1mstart_watch[0m[2m:[0m [2mfluvio::sync::controller[0m[2m:[0m spawning sync controller [3mspec[0m[2m=[0mTopic
+[2m2024-08-19T22:00:20.271482Z[0m [34mDEBUG[0m [2mfluvio::spu[0m[2m:[0m starting spu pool
+[2m2024-08-19T22:00:20.274255Z[0m [32m INFO[0m [1mdispatcher_loop[0m[1m{[0m[3mself[0m[2m=[0mMultiplexDisp(10)[1m}[0m[2m:[0m [2mfluvio_socket::multiplexing[0m[2m:[0m multiplexer terminated
+[2m2024-08-19T22:00:20.274413Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"Partition"[1m}[0m[2m:[0m [2mfluvio::sync::controller[0m[2m:[0m Partition starting dispatch loop
+[2m2024-08-19T22:00:20.274453Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"SPU"[1m}[0m[2m:[0m [2mfluvio::sync::controller[0m[2m:[0m received request [3mspec[0m[2m=[0mSPU
+[2m2024-08-19T22:00:20.274464Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"Topic"[1m}[0m[2m:[0m [2mfluvio::sync::controller[0m[2m:[0m Topic starting dispatch loop
+[2m2024-08-19T22:00:20.274489Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"Partition"[1m}[0m[2m:[0m [2mfluvio::sync::controller[0m[2m:[0m received request [3mspec[0m[2m=[0mPartition
+[2m2024-08-19T22:00:20.274494Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"Partition"[1m}[0m[2m:[0m [2mfluvio::sync::controller[0m[2m:[0m No more items to receive from stream!
+[2m2024-08-19T22:00:20.274521Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"Partition"[1m}[0m[2m:[0m [2mfluvio::sync::controller[0m[2m:[0m Partition terminated
+[2m2024-08-19T22:00:20.274532Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"SPU"[1m}[0m[2m:[0m [2mfluvio::sync::controller[0m[2m:[0m SPU starting dispatch loop
+[2m2024-08-19T22:00:20.274465Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"SPU"[1m}[0m[2m:[0m [2mfluvio::sync::controller[0m[2m:[0m No more items to receive from stream!
+[2m2024-08-19T22:00:20.274581Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"Partition"[1m}[0m[2m:[0m [2mfluvio_socket::multiplexing[0m[2m:[0m multiplexer stream: 2 closed
+[2m2024-08-19T22:00:20.274581Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"SPU"[1m}[0m[2m:[0m [2mfluvio::sync::controller[0m[2m:[0m SPU terminated
+[2m2024-08-19T22:00:20.274776Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"SPU"[1m}[0m[2m:[0m [2mfluvio_socket::multiplexing[0m[2m:[0m multiplexer stream: 1 closed
+[2m2024-08-19T22:00:20.274793Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"Topic"[1m}[0m[2m:[0m [2mfluvio::sync::controller[0m[2m:[0m received request [3mspec[0m[2m=[0mTopic
+[2m2024-08-19T22:00:20.274806Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"Topic"[1m}[0m[2m:[0m [2mfluvio::sync::controller[0m[2m:[0m No more items to receive from stream!
+[2m2024-08-19T22:00:20.274500Z[0m [34mDEBUG[0m [1mdispatcher_loop[0m[1m{[0m[3mself[0m[2m=[0mMultiplexDisp(9)[1m}[0m[2m:[0m [2mfluvio_socket::multiplexing[0m[2m:[0m received frame [3mcorrelation_id[0m[2m=[0m3 [3mlen[0m[2m=[0m225 [3mremaining[0m[2m=[0m225
+[2m2024-08-19T22:00:20.274810Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"Topic"[1m}[0m[2m:[0m [2mfluvio::sync::controller[0m[2m:[0m Topic terminated
+[2m2024-08-19T22:00:20.274866Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"Topic"[1m}[0m[2m:[0m [2mfluvio_socket::multiplexing[0m[2m:[0m multiplexer stream: 3 closed
+[2m2024-08-19T22:00:20.275162Z[0m [34mDEBUG[0m [1mdispatcher_loop[0m[1m{[0m[3mself[0m[2m=[0mMultiplexDisp(9)[1m}[0m[2m:[0m [2mfluvio_socket::multiplexing[0m[2m:[0m received frame [3mcorrelation_id[0m[2m=[0m4 [3mlen[0m[2m=[0m84 [3mremaining[0m[2m=[0m84
+[2m2024-08-19T22:00:20.275220Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"Topic"[1m}[0m[2m:[0m[1mpoll_next[0m[1m{[0m[3mapi_key[0m[2m=[0m1004 [3mcorrelation_id[0m[2m=[0m3[1m}[0m[2m:[0m [2mfluvio_socket::multiplexing[0m[2m:[0m response len>>> [3mresponse_len[0m[2m=[0m225 [3mremaining[0m[2m=[0m225 [3mversion[0m[2m=[0m16
+[2m2024-08-19T22:00:20.275317Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"Topic"[1m}[0m[2m:[0m[1mpoll_next[0m[1m{[0m[3mapi_key[0m[2m=[0m1004 [3mcorrelation_id[0m[2m=[0m3[1m}[0m[2m:[0m [2mfluvio_sc_schema::objects::watch[0m[2m:[0m decoding new
+[2m2024-08-19T22:00:20.275362Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"Topic"[1m}[0m[2m:[0m[1mpoll_next[0m[1m{[0m[3mapi_key[0m[2m=[0m1004 [3mcorrelation_id[0m[2m=[0m3[1m}[0m[2m:[0m [2mfluvio_sc_schema::objects::metadata[0m[2m:[0m decoding tybuffer using new protocol
+[2m2024-08-19T22:00:20.275372Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"Topic"[1m}[0m[2m:[0m[1mpoll_next[0m[1m{[0m[3mapi_key[0m[2m=[0m1004 [3mcorrelation_id[0m[2m=[0m3[1m}[0m[2m:[0m [2mfluvio_sc_schema::objects::metadata[0m[2m:[0m decoded type [3mty[0m[2m=[0m"Topic"
+[2m2024-08-19T22:00:20.275243Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"SPU"[1m}[0m[2m:[0m[1mpoll_next[0m[1m{[0m[3mapi_key[0m[2m=[0m1004 [3mcorrelation_id[0m[2m=[0m4[1m}[0m[2m:[0m [2mfluvio_socket::multiplexing[0m[2m:[0m response len>>> [3mresponse_len[0m[2m=[0m84 [3mremaining[0m[2m=[0m84 [3mversion[0m[2m=[0m16
+[2m2024-08-19T22:00:20.275437Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"SPU"[1m}[0m[2m:[0m[1mpoll_next[0m[1m{[0m[3mapi_key[0m[2m=[0m1004 [3mcorrelation_id[0m[2m=[0m4[1m}[0m[2m:[0m [2mfluvio_sc_schema::objects::watch[0m[2m:[0m decoding new
+[2m2024-08-19T22:00:20.275447Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"SPU"[1m}[0m[2m:[0m[1mpoll_next[0m[1m{[0m[3mapi_key[0m[2m=[0m1004 [3mcorrelation_id[0m[2m=[0m4[1m}[0m[2m:[0m [2mfluvio_sc_schema::objects::metadata[0m[2m:[0m decoding tybuffer using new protocol
+[2m2024-08-19T22:00:20.275454Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"SPU"[1m}[0m[2m:[0m[1mpoll_next[0m[1m{[0m[3mapi_key[0m[2m=[0m1004 [3mcorrelation_id[0m[2m=[0m4[1m}[0m[2m:[0m [2mfluvio_sc_schema::objects::metadata[0m[2m:[0m decoded type [3mty[0m[2m=[0m"SPU"
+[2m2024-08-19T22:00:20.275460Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"SPU"[1m}[0m[2m:[0m[1mpoll_next[0m[1m{[0m[3mapi_key[0m[2m=[0m1004 [3mcorrelation_id[0m[2m=[0m4[1m}[0m[2m:[0m [2mfluvio_sc_schema::objects::metadata[0m[2m:[0m copy bytes [3mlen[0m[2m=[0m75
+[2m2024-08-19T22:00:20.275470Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"SPU"[1m}[0m[2m:[0m [2mfluvio::sync::controller[0m[2m:[0m received request [3mspec[0m[2m=[0mSPU
+[2m2024-08-19T22:00:20.275476Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"SPU"[1m}[0m[2m:[0m [2mfluvio_sc_schema::objects::metadata[0m[2m:[0m downcasting [3mty[0m[2m=[0m"SPU"
+[2m2024-08-19T22:00:20.275491Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"SPU"[1m}[0m[2m:[0m[1msync_metadata[0m[1m{[0m[3mepoch[0m[2m=[0m6 [3mspec[0m[2m=[0mSPU[1m}[0m[2m:[0m [2mfluvio::sync::controller[0m[2m:[0m Received full sync, setting store objects: [3mcount[0m[2m=[0m1
+[2m2024-08-19T22:00:20.275498Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"SPU"[1m}[0m[2m:[0m[1msync_metadata[0m[1m{[0m[3mepoch[0m[2m=[0m6 [3mspec[0m[2m=[0mSPU[1m}[0m[2m:[0m [2mfluvio_stream_model::store::dual_store[0m[2m:[0m SyncAll: <SPU> epoch: 0 incoming 1
+[2m2024-08-19T22:00:20.275507Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"SPU"[1m}[0m[2m:[0m[1msync_metadata[0m[1m{[0m[3mepoch[0m[2m=[0m6 [3mspec[0m[2m=[0mSPU[1m}[0m[2m:[0m [2mfluvio_stream_model::store::dual_store[0m[2m:[0m Sync all: <SPU:1> [add:1, mod_spec:0, mod_status: 0, mod_meta: 0, del:0], 
+[2m2024-08-19T22:00:20.275381Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"Topic"[1m}[0m[2m:[0m[1mpoll_next[0m[1m{[0m[3mapi_key[0m[2m=[0m1004 [3mcorrelation_id[0m[2m=[0m3[1m}[0m[2m:[0m [2mfluvio_sc_schema::objects::metadata[0m[2m:[0m copy bytes [3mlen[0m[2m=[0m214
+[2m2024-08-19T22:00:20.275595Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"Topic"[1m}[0m[2m:[0m [2mfluvio::sync::controller[0m[2m:[0m received request [3mspec[0m[2m=[0mTopic
+[2m2024-08-19T22:00:20.275601Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"Topic"[1m}[0m[2m:[0m [2mfluvio_sc_schema::objects::metadata[0m[2m:[0m downcasting [3mty[0m[2m=[0m"Topic"
+[2m2024-08-19T22:00:20.275224Z[0m [34mDEBUG[0m [1mdispatcher_loop[0m[1m{[0m[3mself[0m[2m=[0mMultiplexDisp(9)[1m}[0m[2m:[0m [2mfluvio_socket::multiplexing[0m[2m:[0m received frame [3mcorrelation_id[0m[2m=[0m6 [3mlen[0m[2m=[0m225 [3mremaining[0m[2m=[0m225
+[2m2024-08-19T22:00:20.275619Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"Topic"[1m}[0m[2m:[0m[1msync_metadata[0m[1m{[0m[3mepoch[0m[2m=[0m16 [3mspec[0m[2m=[0mTopic[1m}[0m[2m:[0m [2mfluvio::sync::controller[0m[2m:[0m Received full sync, setting store objects: [3mcount[0m[2m=[0m4
+[2m2024-08-19T22:00:20.275671Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"Topic"[1m}[0m[2m:[0m[1mpoll_next[0m[1m{[0m[3mapi_key[0m[2m=[0m1004 [3mcorrelation_id[0m[2m=[0m6[1m}[0m[2m:[0m [2mfluvio_socket::multiplexing[0m[2m:[0m response len>>> [3mresponse_len[0m[2m=[0m225 [3mremaining[0m[2m=[0m225 [3mversion[0m[2m=[0m16
+[2m2024-08-19T22:00:20.275680Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"Topic"[1m}[0m[2m:[0m[1mpoll_next[0m[1m{[0m[3mapi_key[0m[2m=[0m1004 [3mcorrelation_id[0m[2m=[0m6[1m}[0m[2m:[0m [2mfluvio_sc_schema::objects::watch[0m[2m:[0m decoding new
+[2m2024-08-19T22:00:20.275685Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"Topic"[1m}[0m[2m:[0m[1mpoll_next[0m[1m{[0m[3mapi_key[0m[2m=[0m1004 [3mcorrelation_id[0m[2m=[0m6[1m}[0m[2m:[0m [2mfluvio_sc_schema::objects::metadata[0m[2m:[0m decoding tybuffer using new protocol
+[2m2024-08-19T22:00:20.275745Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"Topic"[1m}[0m[2m:[0m[1mpoll_next[0m[1m{[0m[3mapi_key[0m[2m=[0m1004 [3mcorrelation_id[0m[2m=[0m6[1m}[0m[2m:[0m [2mfluvio_sc_schema::objects::metadata[0m[2m:[0m decoded type [3mty[0m[2m=[0m"Topic"
+[2m2024-08-19T22:00:20.275720Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"Topic"[1m}[0m[2m:[0m[1msync_metadata[0m[1m{[0m[3mepoch[0m[2m=[0m16 [3mspec[0m[2m=[0mTopic[1m}[0m[2m:[0m [2mfluvio_stream_model::store::dual_store[0m[2m:[0m SyncAll: <Topic> epoch: 0 incoming 4
+[2m2024-08-19T22:00:20.275752Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"Topic"[1m}[0m[2m:[0m[1mpoll_next[0m[1m{[0m[3mapi_key[0m[2m=[0m1004 [3mcorrelation_id[0m[2m=[0m6[1m}[0m[2m:[0m [2mfluvio_sc_schema::objects::metadata[0m[2m:[0m copy bytes [3mlen[0m[2m=[0m214
+[2m2024-08-19T22:00:20.275783Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"Topic"[1m}[0m[2m:[0m[1msync_metadata[0m[1m{[0m[3mepoch[0m[2m=[0m16 [3mspec[0m[2m=[0mTopic[1m}[0m[2m:[0m [2mfluvio_stream_model::store::dual_store[0m[2m:[0m Sync all: <Topic:1> [add:4, mod_spec:0, mod_status: 0, mod_meta: 0, del:0], 
+[2m2024-08-19T22:00:20.275792Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"Topic"[1m}[0m[2m:[0m [2mfluvio::sync::controller[0m[2m:[0m received request [3mspec[0m[2m=[0mTopic
+[2m2024-08-19T22:00:20.275797Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"Topic"[1m}[0m[2m:[0m [2mfluvio_sc_schema::objects::metadata[0m[2m:[0m downcasting [3mty[0m[2m=[0m"Topic"
+[2m2024-08-19T22:00:20.275818Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"Topic"[1m}[0m[2m:[0m[1msync_metadata[0m[1m{[0m[3mepoch[0m[2m=[0m16 [3mspec[0m[2m=[0mTopic[1m}[0m[2m:[0m [2mfluvio::sync::controller[0m[2m:[0m Received full sync, setting store objects: [3mcount[0m[2m=[0m4
+[2m2024-08-19T22:00:20.275846Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"Topic"[1m}[0m[2m:[0m[1msync_metadata[0m[1m{[0m[3mepoch[0m[2m=[0m16 [3mspec[0m[2m=[0mTopic[1m}[0m[2m:[0m [2mfluvio_stream_model::store::dual_store[0m[2m:[0m SyncAll: <Topic> epoch: 0 incoming 4
+[2m2024-08-19T22:00:20.275875Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"Topic"[1m}[0m[2m:[0m[1msync_metadata[0m[1m{[0m[3mepoch[0m[2m=[0m16 [3mspec[0m[2m=[0mTopic[1m}[0m[2m:[0m [2mfluvio_stream_model::store::dual_store[0m[2m:[0m Sync all: <Topic:1> [add:4, mod_spec:0, mod_status: 0, mod_meta: 0, del:0], 
+[2m2024-08-19T22:00:20.315570Z[0m [34mDEBUG[0m [1mdispatcher_loop[0m[1m{[0m[3mself[0m[2m=[0mMultiplexDisp(9)[1m}[0m[2m:[0m [2mfluvio_socket::multiplexing[0m[2m:[0m received frame [3mcorrelation_id[0m[2m=[0m5 [3mlen[0m[2m=[0m357 [3mremaining[0m[2m=[0m357
+[2m2024-08-19T22:00:20.315648Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"Partition"[1m}[0m[2m:[0m[1mpoll_next[0m[1m{[0m[3mapi_key[0m[2m=[0m1004 [3mcorrelation_id[0m[2m=[0m5[1m}[0m[2m:[0m [2mfluvio_socket::multiplexing[0m[2m:[0m response len>>> [3mresponse_len[0m[2m=[0m357 [3mremaining[0m[2m=[0m357 [3mversion[0m[2m=[0m16
+[2m2024-08-19T22:00:20.315656Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"Partition"[1m}[0m[2m:[0m[1mpoll_next[0m[1m{[0m[3mapi_key[0m[2m=[0m1004 [3mcorrelation_id[0m[2m=[0m5[1m}[0m[2m:[0m [2mfluvio_sc_schema::objects::watch[0m[2m:[0m decoding new
+[2m2024-08-19T22:00:20.315662Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"Partition"[1m}[0m[2m:[0m[1mpoll_next[0m[1m{[0m[3mapi_key[0m[2m=[0m1004 [3mcorrelation_id[0m[2m=[0m5[1m}[0m[2m:[0m [2mfluvio_sc_schema::objects::metadata[0m[2m:[0m decoding tybuffer using new protocol
+[2m2024-08-19T22:00:20.315668Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"Partition"[1m}[0m[2m:[0m[1mpoll_next[0m[1m{[0m[3mapi_key[0m[2m=[0m1004 [3mcorrelation_id[0m[2m=[0m5[1m}[0m[2m:[0m [2mfluvio_sc_schema::objects::metadata[0m[2m:[0m decoded type [3mty[0m[2m=[0m"Partition"
+[2m2024-08-19T22:00:20.315673Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"Partition"[1m}[0m[2m:[0m[1mpoll_next[0m[1m{[0m[3mapi_key[0m[2m=[0m1004 [3mcorrelation_id[0m[2m=[0m5[1m}[0m[2m:[0m [2mfluvio_sc_schema::objects::metadata[0m[2m:[0m copy bytes [3mlen[0m[2m=[0m342
+[2m2024-08-19T22:00:20.315681Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"Partition"[1m}[0m[2m:[0m [2mfluvio::sync::controller[0m[2m:[0m received request [3mspec[0m[2m=[0mPartition
+[2m2024-08-19T22:00:20.315686Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"Partition"[1m}[0m[2m:[0m [2mfluvio_sc_schema::objects::metadata[0m[2m:[0m downcasting [3mty[0m[2m=[0m"Partition"
+[2m2024-08-19T22:00:20.315712Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"Partition"[1m}[0m[2m:[0m[1msync_metadata[0m[1m{[0m[3mepoch[0m[2m=[0m63 [3mspec[0m[2m=[0mPartition[1m}[0m[2m:[0m [2mfluvio::sync::controller[0m[2m:[0m Received full sync, setting store objects: [3mcount[0m[2m=[0m4
+[2m2024-08-19T22:00:20.315736Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"Partition"[1m}[0m[2m:[0m[1msync_metadata[0m[1m{[0m[3mepoch[0m[2m=[0m63 [3mspec[0m[2m=[0mPartition[1m}[0m[2m:[0m [2mfluvio_stream_model::store::dual_store[0m[2m:[0m SyncAll: <Partition> epoch: 0 incoming 4
+[2m2024-08-19T22:00:20.315777Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"Partition"[1m}[0m[2m:[0m[1msync_metadata[0m[1m{[0m[3mepoch[0m[2m=[0m63 [3mspec[0m[2m=[0mPartition[1m}[0m[2m:[0m [2mfluvio_stream_model::store::dual_store[0m[2m:[0m Sync all: <Partition:1> [add:4, mod_spec:0, mod_status: 0, mod_meta: 0, del:0], 
+[2m2024-08-19T22:00:20.316053Z[0m [32m INFO[0m [2mfluvio_connector_common::monitoring[0m[2m:[0m using default metric path: /tmp/fluvio-connector.sock
+[2m2024-08-19T22:00:20.316075Z[0m [32m INFO[0m [2mfluvio_connector_common::monitoring[0m[2m:[0m metric file already exists, deleting: /tmp/fluvio-connector.sock
+[2m2024-08-19T22:00:20.316050Z[0m [34mDEBUG[0m [2mhttp_source[0m[2m:[0m [3mconfig[0m[2m=[0mHttpConfig { endpoint: SecretString("****"), body: None, user_agent: "fluvio/http-source 0.5.0", method: "GET", interval: 10s, stream: false, delimiter: "\n", headers: [SecretString("****")], output_parts: Body, output_type: Text, websocket_config: None }
+[2m2024-08-19T22:00:20.316164Z[0m [32m INFO[0m [2mfluvio_connector_common::monitoring[0m[2m:[0m monitoring started
+[2m2024-08-19T22:00:20.335148Z[0m [32m INFO[0m [2mhttp_source[0m[2m:[0m Connected to source endpoint! Starting InfinyOn HTTP Source Connector 0.0.0
+[2m2024-08-19T22:00:20.336586Z[0m [34mDEBUG[0m [2mreqwest::connect[0m[2m:[0m starting new connection: https://api.coincap.io/    
+[2m2024-08-19T22:00:20.336778Z[0m [34mDEBUG[0m [2mhyper_util::client::legacy::connect::dns[0m[2m:[0m resolving host="api.coincap.io"
+[2m2024-08-19T22:00:20.337434Z[0m [34mDEBUG[0m [2mhyper_util::client::legacy::connect::http[0m[2m:[0m connecting to 104.22.13.192:443
+[2m2024-08-19T22:00:20.358347Z[0m [34mDEBUG[0m [2mhyper_util::client::legacy::connect::http[0m[2m:[0m connected to 104.22.13.192:443
+[2m2024-08-19T22:00:20.749024Z[0m [34mDEBUG[0m [2mhyper_util::client::legacy::pool[0m[2m:[0m pooling idle connection for ("https", api.coincap.io)
+[2m2024-08-19T22:00:20.749618Z[0m [32m INFO[0m [1mrun[0m[2m:[0m [2mfluvio::producer::partition_producer[0m[2m:[0m partition producer end event received
+[2m2024-08-19T22:00:20.749663Z[0m [32m INFO[0m [1mrun[0m[2m:[0m [2mfluvio::producer::partition_producer[0m[2m:[0m partition producer end
+Error: the given record is larger than the buffer max_size (16384 bytes). Try increasing the producer batch size or reducing the record size enabling a compression algorithm
+[2m2024-08-19T22:00:20.749709Z[0m [32m INFO[0m [1mdispatcher_loop[0m[1m{[0m[3mself[0m[2m=[0mMultiplexDisp(9)[1m}[0m[2m:[0m [2mfluvio_socket::multiplexing[0m[2m:[0m multiplexer terminated
+[2m2024-08-19T22:00:20.749738Z[0m [34mDEBUG[0m [1mdispatch_loop[0m[1m{[0m[3mspec[0m[2m=[0m"SPU"[1m}[0m[2m:[0m [2mfluvio::sync::controller[0m[2m:[0m received request [3mspec[0m[2m=[0mSPU

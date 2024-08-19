@@ -1,0 +1,12 @@
+apiVersion: 0.1.0
+meta:
+  version: 0.3.8
+  name: _name_
+  type: http-source
+  topic: _topic_
+  
+http:
+  endpoint: "_endpoint_"
+  interval: 10s
+  headers:
+    - "Cache-Control: no-cache"
