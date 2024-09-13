@@ -1,0 +1,6 @@
+{
+    "compilerOptions": {
+      "moduleResolution": "node" // or "classic", "node16", or "nodenext"
+    }
+  }
+  
